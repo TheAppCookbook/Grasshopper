@@ -74,6 +74,14 @@ extension StoryListViewController: UICollectionViewDataSource {
         let titleLabel = cell.viewWithTag(2) as! UILabel
         titleLabel.text = story.title
         
+        let tweetCountLabel = cell.viewWithTag(3) as! UILabel
+        story.tweets.query()?.countObjectsInBackgroundWithBlock({ (count: Int32, err: NSError?) in
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            tweetCountLabel.text = numberFormatter.stringFromNumber(NSNumber(int: count))
+        })
+        
+        
         return cell
     }
 }

@@ -9,6 +9,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
         </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Navigation Controller-->
@@ -66,9 +69,22 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-dw-PeY">
-                                            <rect key="frame" x="56.5" y="69" width="50.5" height="27.5"/>
+                                            <rect key="frame" x="56" y="80" width="50.5" height="27.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_icon" translatesAutoresizingMaskIntoConstraints="NO" id="0jS-c7-Fuh">
+                                            <rect key="frame" x="61" y="54" width="16" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="16" id="Jvq-A6-4zC"/>
+                                                <constraint firstAttribute="height" constant="16" id="n3W-yu-VQ8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9O-Qv-m7L">
+                                            <rect key="frame" x="86" y="52" width="9" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -77,12 +93,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="pdL-wu-8qn" secondAttribute="trailing" constant="-8" id="6IA-Nh-lKa"/>
+                                    <constraint firstAttribute="centerX" secondItem="0jS-c7-Fuh" secondAttribute="centerX" constant="13.5" id="CrE-px-HdV"/>
+                                    <constraint firstItem="VJ5-dw-PeY" firstAttribute="top" secondItem="0jS-c7-Fuh" secondAttribute="bottom" constant="10" id="HvK-hr-BoV"/>
+                                    <constraint firstItem="0jS-c7-Fuh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="20" id="JMw-8h-Bf8"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="pdL-wu-8qn" secondAttribute="bottom" constant="-8" id="Jnd-sC-owI"/>
                                     <constraint firstItem="pdL-wu-8qn" firstAttribute="top" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="-8" id="LzW-xx-L0Q"/>
+                                    <constraint firstItem="v9O-Qv-m7L" firstAttribute="leading" secondItem="0jS-c7-Fuh" secondAttribute="trailing" constant="9" id="SPH-oO-aN8"/>
                                     <constraint firstItem="VJ5-dw-PeY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="leadingMargin" constant="25" id="Sf2-y9-BJH"/>
+                                    <constraint firstItem="0jS-c7-Fuh" firstAttribute="centerY" secondItem="v9O-Qv-m7L" secondAttribute="centerY" constant="0.5" id="TKo-Nd-GbL"/>
                                     <constraint firstAttribute="centerX" secondItem="VJ5-dw-PeY" secondAttribute="centerX" constant="0.5" id="Ydn-xB-aZf"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="VJ5-dw-PeY" secondAttribute="trailing" constant="25" id="ZFK-fw-jcc"/>
-                                    <constraint firstAttribute="centerY" secondItem="VJ5-dw-PeY" secondAttribute="centerY" constant="0.75" id="ciC-fh-ck4"/>
+                                    <constraint firstAttribute="centerY" secondItem="VJ5-dw-PeY" secondAttribute="centerY" constant="-9.75" id="ciC-fh-ck4"/>
                                     <constraint firstItem="pdL-wu-8qn" firstAttribute="leading" secondItem="FnF-0k-KUS" secondAttribute="leadingMargin" constant="-8" id="dgd-qv-aIT"/>
                                     <constraint firstItem="VJ5-dw-PeY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="25" id="ia2-Nq-sbJ"/>
                                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="VJ5-dw-PeY" secondAttribute="bottom" constant="25" id="rz6-GW-iAq"/>
@@ -125,7 +146,7 @@
             <objects>
                 <tableViewController id="Xe5-er-cog" customClass="StoryViewController" customModule="Grasshopper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ofy-yw-n6G">
-                        <rect key="frame" x="0.0" y="44" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="St8-0s-hgL">
@@ -180,6 +201,11 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="Hrj-Xo-IxR" secondAttribute="bottom" constant="-8" id="e6c-hb-E9g"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectionStyle">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </tableViewCell>
                         </prototypes>
                         <userDefinedRuntimeAttributes>
@@ -192,9 +218,11 @@
                             <outlet property="delegate" destination="Xe5-er-cog" id="w2l-7K-RpF"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <connections>
                         <outlet property="headerImageView" destination="xSa-lS-21z" id="GgE-sD-0cf"/>
                         <outlet property="headerTitelLabel" destination="maP-3i-iUF" id="CGa-rn-Cqj"/>
+                        <outlet property="shareButtonItem" destination="oZi-CK-yZj" id="c6Q-es-aIg"/>
                         <outlet property="titleImageView" destination="Czl-3G-qL8" id="3U2-s9-6KL"/>
                     </connections>
                 </tableViewController>
@@ -204,11 +232,19 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <gestureRecognizers/>
                 </imageView>
+                <barButtonItem image="share" id="oZi-CK-yZj">
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="shareButtonWasPressed:" destination="Xe5-er-cog" id="Pab-kt-IYp"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="753" y="322"/>
         </scene>
     </scenes>
     <resources>
         <image name="nav-image" width="105" height="81"/>
+        <image name="share" width="66" height="69"/>
+        <image name="twitter_icon" width="51" height="42"/>
     </resources>
 </document>
