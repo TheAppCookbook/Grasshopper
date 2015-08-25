@@ -1,0 +1,52 @@
+PODS:
+  - ACBInfoPanel (0.0.1)
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Bolts/Tasks (1.2.0)
+  - Parse (1.8.1):
+    - Bolts/Tasks (>= 1.2.0)
+  - UICollectionViewLeftAlignedLayout (1.0.0)
+
+DEPENDENCIES:
+  - ACBInfoPanel (from `git@github.com:TheAppCookbook/templates.git`, branch `master`)
+  - AFNetworking
+  - Parse
+  - UICollectionViewLeftAlignedLayout
+
+EXTERNAL SOURCES:
+  ACBInfoPanel:
+    :branch: master
+    :git: git@github.com:TheAppCookbook/templates.git
+
+CHECKOUT OPTIONS:
+  ACBInfoPanel:
+    :commit: c418d6be0b4ffda3c851e47191e2d6402f66fb0e
+    :git: git@github.com:TheAppCookbook/templates.git
+
+SPEC CHECKSUMS:
+  ACBInfoPanel: 186db7784366d9a331d406e02a9da58b61e1b55e
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
+  UICollectionViewLeftAlignedLayout: c3dddf91b3dc72ede7eca7a532545804389ab833
+
+COCOAPODS: 0.38.2

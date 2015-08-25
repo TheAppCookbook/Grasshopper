@@ -1,0 +1,44 @@
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+        t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+
+<div id="container" style="font-family: 'OpenSans';"></div>
+
+<script type="text/javascript">
+    function Height(elmID) {
+        var elmHeight, elmMargin, elm = document.getElementById(elmID);
+        if(document.all) {// IE
+            elmHeight = elm.currentStyle.height;
+            elmMargin = parseInt(elm.currentStyle.marginTop, 10) + parseInt(elm.currentStyle.marginBottom, 10) + "px";
+        } else {// Mozilla
+            elmHeight = document.defaultView.getComputedStyle(elm, '').getPropertyValue('height');
+            elmMargin = parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-top')) + parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-bottom')) + "px";
+        }
+        return (elmHeight+elmMargin);
+    }
+    
+    twttr.ready(function () {
+        twttr.widgets.createTweet('$TWEET_ID', document.getElementById('container'), {
+            theme: 'light',
+            linkColor: '#5EC43B',
+            dnt: true
+        }).then(function () {
+            window.location = 'Grasshopper:ready';
+        });
+    });
+</script>
