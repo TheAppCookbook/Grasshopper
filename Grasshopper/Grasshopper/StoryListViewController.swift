@@ -96,7 +96,20 @@ extension StoryListViewController: UICollectionViewDelegateFlowLayout {
             size.width = self.view.frame.width
             size.height = self.view.frame.height / CGFloat(self.stories.count)
             
-        // Even, > 3
+        // 4 exactly
+        case 4:
+            switch indexPath.row {
+            case 0...1:
+                size.width = self.view.frame.width
+                
+            default:
+                let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+                size.width = size.height - (flowLayout.minimumInteritemSpacing / 2.0)
+            }
+            
+            size.height = self.view.frame.size.height / 3.0
+            
+        // Even, > 4
         case _ where (self.stories.count % 2) == 0:
             switch indexPath.row {
             case 0...1:
@@ -107,7 +120,7 @@ extension StoryListViewController: UICollectionViewDelegateFlowLayout {
                 size.width = size.height - (flowLayout.minimumInteritemSpacing / 2.0)
             }
             
-        // Odd, > 3
+        // Odd, > 4
         default:
             switch indexPath.row {
             case 0...2:
