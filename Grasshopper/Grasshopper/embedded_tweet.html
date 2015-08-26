@@ -20,6 +20,7 @@
 <div id="container" style="font-family: 'OpenSans';"></div>
 
 <script type="text/javascript">
+    window.twttr_loaded = false;
     function Height(elmID) {
         var elmHeight, elmMargin, elm = document.getElementById(elmID);
         if(document.all) {// IE
@@ -38,7 +39,7 @@
             linkColor: '#5EC43B',
             dnt: true
         }).then(function () {
-            window.location = 'Grasshopper:ready';
+            window.location = 'grasshopper:ready';
         });
     });
 </script>

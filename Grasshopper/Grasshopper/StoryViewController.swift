@@ -13,7 +13,6 @@ class StoryViewController: UITableViewController {
     @IBOutlet var headerImageView: UIImageView!
     @IBOutlet var headerTitelLabel: UILabel!
     @IBOutlet var titleImageView: UIImageView!
-    @IBOutlet var shareButtonItem: UIBarButtonItem!
     
     private var tweets: [Tweet] = []
     var story: Story?
@@ -22,7 +21,6 @@ class StoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = self.titleImageView
-        self.navigationItem.rightBarButtonItem = self.shareButtonItem
         
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 350.0
@@ -33,7 +31,9 @@ class StoryViewController: UITableViewController {
     // MARK: Data Handlers
     private func reloadData() {
         self.headerImageView.setImageWithURL(NSURL(string: self.story!.imageURLString)!)
+        
         self.headerTitelLabel.text = self.story!.title
+        self.headerTitelLabel.superview?.bringSubviewToFront(self.headerTitelLabel)
         
         let query = self.story?.tweets.query()
         query?.orderByDescending("createdAt")
@@ -46,7 +46,6 @@ class StoryViewController: UITableViewController {
     
     // MARK: Responders
     @IBAction func shareButtonWasPressed(sender: UIBarButtonItem!) {
-        
     }
 }
 
@@ -62,6 +61,7 @@ extension StoryViewController: UITableViewDataSource {
         let tweetView = cell.viewWithTag(1) as! TweetView
         tweetView.tweet = tweet
         tweetView.delegate = self
+        tweetView.scrollView.scrollEnabled = false
         
         if let constraint = tweetView.constraints().first as? NSLayoutConstraint {
             constraint.constant = self.tableView.estimatedRowHeight
@@ -75,17 +75,6 @@ extension StoryViewController: UITableViewDelegate {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let tweet = self.tweets[indexPath.row]
-        var url = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
-        if UIApplication.sharedApplication().canOpenURL(url) {
-            UIApplication.sharedApplication().openURL(url)
-        } else {
-            url = NSURL(string: "https://twitter.com/GrasswireNow/status/\(tweet.tweetID)")!
-            UIApplication.sharedApplication().openURL(url)
-        }
-    }
 }
 
 extension StoryViewController: UIWebViewDelegate {
@@ -96,7 +85,12 @@ extension StoryViewController: UIWebViewDelegate {
         }
         
         if let requestURL = request.URL?.absoluteString {
-            if requestURL.hasPrefix("grasshopper:ready") {
+            println("REQ: \(requestURL), NAV: \(navigationType.rawValue)")
+            
+            if requestURL.hasPrefix("http") && navigationType == .LinkClicked {
+                UIApplication.sharedApplication().openURL(request.URL!)
+                return false
+            } else if requestURL.hasPrefix("grasshopper:ready") {
                 let height = (webView as! TweetView).contentHeight + 10.0
                 
                 if let constraint = webView.constraints().first as? NSLayoutConstraint {
