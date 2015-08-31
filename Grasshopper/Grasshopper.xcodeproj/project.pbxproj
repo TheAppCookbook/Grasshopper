@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		73B6A80E1B8CCEE200F76716 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A80D1B8CCEE200F76716 /* Story.swift */; };
-		73B6A8101B8CD46500F76716 /* TweetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A80F1B8CD46500F76716 /* TweetView.swift */; };
-		73B6A8151B8CD5B100F76716 /* embedded_tweet.html in Resources */ = {isa = PBXBuildFile; fileRef = 73B6A8141B8CD5B100F76716 /* embedded_tweet.html */; };
+		73B6A8101B8CD46500F76716 /* TweetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A80F1B8CD46500F76716 /* TweetContainerView.swift */; };
+		73B6A8151B8CD5B100F76716 /* embedded_tweets_container.html in Resources */ = {isa = PBXBuildFile; fileRef = 73B6A8141B8CD5B100F76716 /* embedded_tweets_container.html */; };
 		73B6A8171B8CF60100F76716 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A8161B8CF60100F76716 /* StoryViewController.swift */; };
 		73B6A8191B8CFCDD00F76716 /* UIImage+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A8181B8CFCDD00F76716 /* UIImage+Filters.swift */; };
 		73B6A81C1B8CFE2900F76716 /* GrayscaleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6A81B1B8CFE2900F76716 /* GrayscaleImageView.swift */; };
@@ -23,6 +23,7 @@
 		73B8E16A1B8CCAC500910D7E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73B8E1681B8CCAC500910D7E /* LaunchScreen.xib */; };
 		73B8E1761B8CCAC500910D7E /* GrasshopperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E1751B8CCAC500910D7E /* GrasshopperTests.swift */; };
 		73B8E1801B8CCC6D00910D7E /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E17F1B8CCC6D00910D7E /* Tweet.swift */; };
+		73CCAFD11B94EEB9000F564D /* embedded_tweet.html in Resources */ = {isa = PBXBuildFile; fileRef = 73CCAFD01B94EEB9000F564D /* embedded_tweet.html */; };
 		C316FE0185217F381F70CDBF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E691D7C5AF150EC9816F2E77 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -39,8 +40,8 @@
 /* Begin PBXFileReference section */
 		06CA065C1684716CAC15592F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		73B6A80D1B8CCEE200F76716 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
-		73B6A80F1B8CD46500F76716 /* TweetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetView.swift; sourceTree = "<group>"; };
-		73B6A8141B8CD5B100F76716 /* embedded_tweet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = embedded_tweet.html; sourceTree = "<group>"; };
+		73B6A80F1B8CD46500F76716 /* TweetContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetContainerView.swift; sourceTree = "<group>"; };
+		73B6A8141B8CD5B100F76716 /* embedded_tweets_container.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = embedded_tweets_container.html; sourceTree = "<group>"; };
 		73B6A8161B8CF60100F76716 /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		73B6A8181B8CFCDD00F76716 /* UIImage+Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Filters.swift"; sourceTree = "<group>"; };
 		73B6A81B1B8CFE2900F76716 /* GrayscaleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrayscaleImageView.swift; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 		73B8E1741B8CCAC500910D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73B8E1751B8CCAC500910D7E /* GrasshopperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrasshopperTests.swift; sourceTree = "<group>"; };
 		73B8E17F1B8CCC6D00910D7E /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		73CCAFD01B94EEB9000F564D /* embedded_tweet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = embedded_tweet.html; sourceTree = "<group>"; };
 		DC1225D251FBE8CB025542FA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E691D7C5AF150EC9816F2E77 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,7 +86,7 @@
 		73B6A8111B8CD46700F76716 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				73B6A80F1B8CD46500F76716 /* TweetView.swift */,
+				73B6A80F1B8CD46500F76716 /* TweetContainerView.swift */,
 				73B6A81B1B8CFE2900F76716 /* GrayscaleImageView.swift */,
 			);
 			name = Views;
@@ -149,7 +151,8 @@
 			children = (
 				73B6A81F1B8D1FB500F76716 /* OpenSans-Regular.ttf */,
 				73B6A8201B8D1FB500F76716 /* OpenSans-Semibold.ttf */,
-				73B6A8141B8CD5B100F76716 /* embedded_tweet.html */,
+				73B6A8141B8CD5B100F76716 /* embedded_tweets_container.html */,
+				73CCAFD01B94EEB9000F564D /* embedded_tweet.html */,
 				73B8E15E1B8CCAC500910D7E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -283,9 +286,10 @@
 			files = (
 				73B6A8221B8D1FB500F76716 /* OpenSans-Semibold.ttf in Resources */,
 				73B6A8211B8D1FB500F76716 /* OpenSans-Regular.ttf in Resources */,
+				73CCAFD11B94EEB9000F564D /* embedded_tweet.html in Resources */,
 				73B8E1651B8CCAC500910D7E /* Main.storyboard in Resources */,
 				73B8E16A1B8CCAC500910D7E /* LaunchScreen.xib in Resources */,
-				73B6A8151B8CD5B100F76716 /* embedded_tweet.html in Resources */,
+				73B6A8151B8CD5B100F76716 /* embedded_tweets_container.html in Resources */,
 				73B8E1671B8CCAC500910D7E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,7 +362,7 @@
 				73B6A8191B8CFCDD00F76716 /* UIImage+Filters.swift in Sources */,
 				73B6A81C1B8CFE2900F76716 /* GrayscaleImageView.swift in Sources */,
 				73B8E1601B8CCAC500910D7E /* AppDelegate.swift in Sources */,
-				73B6A8101B8CD46500F76716 /* TweetView.swift in Sources */,
+				73B6A8101B8CD46500F76716 /* TweetContainerView.swift in Sources */,
 				73B6A81E1B8D0A1100F76716 /* DispatchExtensions.swift in Sources */,
 				73B6A80E1B8CCEE200F76716 /* Story.swift in Sources */,
 			);

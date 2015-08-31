@@ -1,23 +1,4 @@
-<script>
-    window.twttr = (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-
-        t._e = [];
-        t.ready = function(f) {
-        t._e.push(f);
-        };
-
-        return t;
-    }(document, "script", "twitter-wjs"));
-</script>
-
-<div id="container" style="font-family: 'OpenSans';"></div>
+<div id="tweet-$TWEET_ID" style="font-family: 'OpenSans';"></div>
 
 <script type="text/javascript">
     window.twttr_loaded = false;
@@ -34,7 +15,7 @@
     }
     
     twttr.ready(function () {
-        twttr.widgets.createTweet('$TWEET_ID', document.getElementById('container'), {
+        twttr.widgets.createTweet('$TWEET_ID', document.getElementById('tweet-$TWEET_ID'), {
             theme: 'light',
             linkColor: '#5EC43B',
             dnt: true

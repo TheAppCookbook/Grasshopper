@@ -8,11 +8,12 @@
 
 import UIKit
 
-class StoryViewController: UITableViewController {
+class StoryViewController: UIViewController {
     // MARK: Properties
     @IBOutlet var headerImageView: UIImageView!
     @IBOutlet var headerTitelLabel: UILabel!
     @IBOutlet var titleImageView: UIImageView!
+    @IBOutlet var tweetContainerView: TweetContainerView!
     
     private var tweets: [Tweet] = []
     var story: Story?
@@ -21,9 +22,6 @@ class StoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = self.titleImageView
-        
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 350.0
         
         self.reloadData()
     }
@@ -40,40 +38,10 @@ class StoryViewController: UITableViewController {
         
         query?.findObjectsInBackgroundWithBlock({ (objs: [AnyObject]?, err: NSError?) in
             self.tweets = objs as? [Tweet] ?? []
-            self.tableView.reloadData()
+            
+            self.tweetContainerView.tweets = self.tweets
+            self.tweetContainerView.reloadData()
         })
-    }
-    
-    // MARK: Responders
-    @IBAction func shareButtonWasPressed(sender: UIBarButtonItem!) {
-    }
-}
-
-extension StoryViewController: UITableViewDataSource {
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tweets.count
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as! UITableViewCell
-        let tweet = self.tweets[indexPath.row]
-        
-        let tweetView = cell.viewWithTag(1) as! TweetView
-        tweetView.tweet = tweet
-        tweetView.delegate = self
-        tweetView.scrollView.scrollEnabled = false
-        
-        if let constraint = tweetView.constraints().first as? NSLayoutConstraint {
-            constraint.constant = self.tableView.estimatedRowHeight
-        }
-        
-        return cell
-    }
-}
-
-extension StoryViewController: UITableViewDelegate {
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
     }
 }
 
@@ -89,18 +57,6 @@ extension StoryViewController: UIWebViewDelegate {
             
             if requestURL.hasPrefix("http") && navigationType == .LinkClicked {
                 UIApplication.sharedApplication().openURL(request.URL!)
-                return false
-            } else if requestURL.hasPrefix("grasshopper:ready") {
-                let height = (webView as! TweetView).contentHeight + 10.0
-                
-                if let constraint = webView.constraints().first as? NSLayoutConstraint {
-                    if constraint.constant != height {
-                        self.tableView.beginUpdates()
-                        constraint.constant = height
-                        self.tableView.endUpdates()
-                    }
-                }
-                
                 return false
             }
         }
