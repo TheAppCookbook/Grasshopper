@@ -11,9 +11,5 @@
         "request": "^2.55.0",
         "throng": "^1.0.0",
         "twitter": "^1.2.5"
-    },
-    "engines": {
-        "node": "0.10.x",
-        "npm": "2.1.x"
     }
 }
