@@ -20,7 +20,7 @@ start = () ->
         Tweet.stream streamOptions, (tweetData) ->
             processTweet(tweetData)
     catch error
-        console.log("streaming error: ", error)
+        console.log("streaming error:", error)
     
 throng start,
     workers: 1
@@ -36,7 +36,7 @@ processTweet = (tweetData) ->
     
     Story.mostRecent (story) ->
         unless story?
-            console.log("creating first story from tweet ", idString)
+            console.log("creating first story from tweet", idString)
             
             story = new Story
             story.set("title", text)
@@ -53,22 +53,24 @@ processTweet = (tweetData) ->
             sameDay = elapsedTime < 43200000  # milliseconds in 12 hours
             
             if sameDay
-                console.log("adding tweet ", idString, " to most recent story")
+                console.log("adding tweet", idString, "to most recent story")
                 console.log(story.get("imageURLString"), story.get("imageURLString")?)
                 
                 tweet = new Tweet
                 tweet.set("tweetID", idString)
-                tweet.save () ->
-                    console.log("... save complete")
-                    story.tweets().add(tweet)
-                    
-                    if not story.get("imageURLString")? and media_url?
-                        console.log("setting media_url from tweet ", idString, " to most recent story")
-                        story.set("imageURLString", media_url)
-                    
-                    story.save()
+                tweet.save null, {
+                    success: () ->
+                        console.log("... save complete")
+                        story.tweets().add(tweet)
+                        
+                        if (not story.get("imageURLString")?) and media_url?
+                            console.log("setting media_url from tweet", idString, "to most recent story")
+                            story.set("imageURLString", media_url)
+                        
+                        story.save()
+                }
             else
-                console.log("creating story from tweet ", idString)
+                console.log("creating story from tweet", idString)
             
                 story = new Story
                 story.set("title", text)
