@@ -12,12 +12,15 @@ Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
 
 # Main
 start = () ->
-    console.log("starting stream...")
     streamOptions =
         follow: '747682134,3281311297'
         
-    Tweet.stream streamOptions, (tweetData) ->
-        processTweet(tweetData)
+    try
+        console.log("starting stream...")
+        Tweet.stream streamOptions, (tweetData) ->
+            processTweet(tweetData)
+    catch error
+        console.log("streaming error: ", error)
     
 throng start,
     workers: 1
