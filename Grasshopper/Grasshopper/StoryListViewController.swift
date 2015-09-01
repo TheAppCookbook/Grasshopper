@@ -69,7 +69,9 @@ extension StoryListViewController: UICollectionViewDataSource {
         let story = self.stories[indexPath.row]
         
         let imageView = cell.viewWithTag(1) as! UIImageView
-        imageView.setImageWithURL(NSURL(string: story.imageURLString)!)
+        if let imageURL = NSURL(string: story.imageURLString ?? "") {
+            imageView.setImageWithURL(imageURL)
+        }
         
         let titleLabel = cell.viewWithTag(2) as! UILabel
         titleLabel.text = story.title

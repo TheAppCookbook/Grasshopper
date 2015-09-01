@@ -35,7 +35,7 @@ processTweet = (tweetData) ->
             text = tweetData.attributes.text
             
             entities = JSON.parse(tweetData._hashedJSON?.entities)
-            media_url = entities?.media?[0]?.media_url
+            media_url = entities?.media?[0]?.media_url or null
             
             if sameDay
                 console.log("adding tweet ", idString, " to most recent story")
