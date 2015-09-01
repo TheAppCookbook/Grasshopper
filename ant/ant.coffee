@@ -14,7 +14,7 @@ Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
 start = () ->
     console.log("starting stream...")
     streamOptions =
-        follow: '747682134'
+        follow: '747682134', '3281311297'
         
     Tweet.stream streamOptions, (tweetData) ->
         processTweet(tweetData)
