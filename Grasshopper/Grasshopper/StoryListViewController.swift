@@ -20,7 +20,10 @@ class StoryListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = self.titleImageView
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         self.reloadData()
     }
     
