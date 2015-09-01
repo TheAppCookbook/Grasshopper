@@ -25,17 +25,27 @@ throng start,
     
 # Handlers
 processTweet = (tweetData) ->
+    idString = tweetData.attributes.id_str
+    text = tweetData.attributes.text
+    
+    entities = JSON.parse(tweetData._hashedJSON?.entities)
+    media_url = entities?.media?[0]?.media_url or null
+    
     Story.mostRecent (story) ->
+        unless story?
+            console.log("creating story from tweet ", idString)
+            
+            story = new Story
+            story.set("title", text)
+            story.set("imageURLString", media_url)
+            story.save()
+            
+            return
+        
         story.allTweets (tweets) ->
             latestTweet = tweets[0]
             elapsedTime = (new Date).getTime() - (latestTweet?.createdAt.getTime() or 0)
             sameDay = elapsedTime < 43200000  # milliseconds in 12 hours
-            
-            idString = tweetData.attributes.id_str
-            text = tweetData.attributes.text
-            
-            entities = JSON.parse(tweetData._hashedJSON?.entities)
-            media_url = entities?.media?[0]?.media_url or null
             
             if sameDay
                 console.log("adding tweet ", idString, " to most recent story")
