@@ -10,7 +10,8 @@ Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
     "SFrizfmgICHbDha7OsJD30GLxACYUYkBWa9omGBO"
 
 # Main
-start = () ->    
+start = () ->
+    console.log("starting stream...")
     streamOptions =
         follow: '747682134'
         
