@@ -3,6 +3,7 @@
 Parse = require("parse").Parse
 Tweet = require "./models/tweet"
 Story = require "./models/story"
+throng = require "throng"
 
 
 # Setup
