@@ -54,7 +54,6 @@ processTweet = (tweetData) ->
             
             if sameDay
                 console.log("adding tweet", idString, "to most recent story")
-                console.log(story.get("imageURLString"), story.get("imageURLString")?)
                 
                 tweet = new Tweet
                 tweet.set("tweetID", idString)
