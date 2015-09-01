@@ -28,7 +28,7 @@ processTweet = (tweetData) ->
     Story.mostRecent (story) ->
         story.allTweets (tweets) ->
             latestTweet = tweets[0]
-            elapsedTime = (new Date).getTime() - latestTweet.createdAt.getTime()
+            elapsedTime = (new Date).getTime() - (latestTweet?.createdAt.getTime() or 0)
             sameDay = elapsedTime < 43200000  # milliseconds in 12 hours
             
             idString = tweetData.attributes.id_str

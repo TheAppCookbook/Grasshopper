@@ -31,6 +31,7 @@ Story.mostRecent = (callback) ->
         success: (story) ->
             callback(story)
         error: (error) ->
+            console.log(error)
             callback(null)
     }
 
