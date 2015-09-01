@@ -14,6 +14,11 @@ class Story: PFObject, PFSubclassing {
     @NSManaged var imageURLString: String
     @NSManaged private(set) var tweets: PFRelation
     
+    var imageURL: NSURL? {
+        let urlString = (self.valueForKey("imageURLString") as? String) ?? ""
+        return NSURL(string: urlString)
+    }
+    
     static func parseClassName() -> String {
         return "Story"
     }
