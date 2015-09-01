@@ -20,6 +20,15 @@ class StoryListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = self.titleImageView
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = self.navigationController?.navigationBar.barTintColor
+        refreshControl.addTarget(self,
+            action: "refreshControlWasTriggered:",
+            forControlEvents: .ValueChanged)
+        
+        self.collectionView?.alwaysBounceVertical = true
+        self.collectionView?.addSubview(refreshControl)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -40,13 +49,14 @@ class StoryListViewController: UICollectionViewController {
     }
     
     // MARK: Data Handlers
-    private func reloadData() {
+    private func reloadData(completion: (() -> Void)={}) {
         let query = Story.query()
         query?.orderByDescending("createdAt")
         
         query?.findObjectsInBackgroundWithBlock({ (objs: [AnyObject]?, err: NSError?) in
             self.stories = objs as? [Story] ?? []
             self.collectionView?.reloadData()
+            completion()
         })
     }
     
@@ -58,6 +68,12 @@ class StoryListViewController: UICollectionViewController {
         self.presentViewController(infoPanel,
             animated: true,
             completion: nil)
+    }
+    
+    func refreshControlWasTriggered(sender: UIRefreshControl!) {
+        self.reloadData {
+            sender.endRefreshing()
+        }
     }
 }
 
