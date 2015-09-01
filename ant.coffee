@@ -61,6 +61,7 @@ processTweet = (tweetData) ->
                     story.tweets().add(tweet)
                     
                     if not story.get("imageURLString")? and media_url?
+                        console.log("setting media_url from tweet ", idString, " to most recent story")
                         story.set("imageURLString", media_url)
                     
                     story.save()
