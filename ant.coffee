@@ -36,7 +36,7 @@ processTweet = (tweetData) ->
     
     Story.mostRecent (story) ->
         unless story?
-            console.log("creating story from tweet ", idString)
+            console.log("creating first story from tweet ", idString)
             
             story = new Story
             story.set("title", text)
@@ -47,7 +47,9 @@ processTweet = (tweetData) ->
         
         story.allTweets (tweets) ->
             latestTweet = tweets[0]
-            elapsedTime = (new Date).getTime() - (latestTweet?.createdAt.getTime() or 0)
+            latestTime = latestTweet?.createdAt.getTime() or (new Date).getTime()
+            
+            elapsedTime = (new Date).getTime() - latestTime
             sameDay = elapsedTime < 43200000  # milliseconds in 12 hours
             
             if sameDay
