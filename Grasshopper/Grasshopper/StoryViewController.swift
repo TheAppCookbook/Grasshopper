@@ -28,7 +28,7 @@ class StoryViewController: UIViewController {
     
     // MARK: Data Handlers
     private func reloadData() {
-        self.headerImageView.setImageWithURL(NSURL(string: self.story!.imageURLString)!)
+        self.headerImageView.setImageWithURL(self.story!.imageURL!)
         
         self.headerTitelLabel.text = self.story!.title
         self.headerTitelLabel.superview?.bringSubviewToFront(self.headerTitelLabel)

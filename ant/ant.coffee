@@ -50,7 +50,7 @@ processTweet = (tweetData) ->
             latestTime = latestTweet?.createdAt.getTime() or (new Date).getTime()
             
             elapsedTime = (new Date).getTime() - latestTime
-            sameDay = elapsedTime < 43200000  # milliseconds in 12 hours
+            sameDay = elapsedTime < 10800000  # milliseconds in 3 hours
             
             if sameDay
                 console.log("adding tweet", idString, "to most recent story")
