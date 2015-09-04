@@ -55,16 +55,15 @@ processTweet = (tweetData) ->
         console.log("most recent story", story.get("title"))
         
         tweet = Tweet.fromTweetData tweetData
-        story.addTweet tweet, (addedTweet) ->
+        story.addTweet tweet, (addedTweet, alreadyAdded) ->
             if addedTweet?
-                if addedTweet.get("tweetID") != tweet.get("tweetID")
-                    console.log("skipping duplicate tweet", tweet.get("tweetID"))
-                    return
-                
                 console.log("adding tweet", tweet.get("tweetID") , "to most recent story")
                 story.save()
                 return
-                           
+            else if alreadyAdded
+                console.log("skipping duplicate tweet", tweet.get("tweetID"))
+                return
+            
             console.log("creating story from tweet", tweet.get("tweetID"))
             
             newStory = Story.fromTweetData tweetData
