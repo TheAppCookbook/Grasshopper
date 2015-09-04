@@ -16,7 +16,7 @@ Story = Parse.Object.extend "Story", {
                 callback(null)
     
     # Mutators
-    addTweet: (tweet, callback) ->
+    addTweet: (tweet, callback) ->        
         if tweet.get("isBreaking")
             callback(null)
             return
@@ -36,6 +36,10 @@ Story = Parse.Object.extend "Story", {
                 
             # compare texts
             for oldTweet in tweets
+                if oldTweet.text == tweet.text
+                    callback(oldTweet)
+                    return
+                
                 unless oldTweet.proximityToTweet(tweet) > 0.0
                     callback(null)
                     return
