@@ -20,7 +20,7 @@ Story = Parse.Object.extend "Story", {
         if tweet.get("isBreaking")
             callback(null)
             return
-        
+                    
         self = this
         @tweets (tweets) ->
             latestTweet = tweets[0]
@@ -33,6 +33,12 @@ Story = Parse.Object.extend "Story", {
             unless sameTimeChunk
                 callback(null)
                 return
+                
+            # compare texts
+            for oldTweet in tweets
+                unless oldTweet.proximityToTweet(tweet) > 0.0
+                    callback(null)
+                    return
                 
             if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
                 self.set "imageURLString", tweet.get("mediaURL")

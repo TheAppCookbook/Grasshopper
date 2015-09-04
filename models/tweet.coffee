@@ -2,10 +2,41 @@
 Twitter = require "twitter"
 Parse = require("parse").Parse
 Story = require "./story"
+pos = require "pos"
 
 
 Tweet = Parse.Object.extend "Tweet", {
-    # Mutator
+    # Accessors
+    keywords: () ->
+        # https://github.com/dariusk/pos-js
+        
+        taggedWords = Tweet._tagger.tag(Tweet._lexer.lex(@get("text")))
+        longEnoughWords = taggedWords.filter ($0) ->
+            return $0[0].length > 3
+        
+        keywords = longEnoughWords.filter ($0) ->
+            return [
+                "IN", "DT", "CC", "CD",
+                "VB", "VBD", "VBN", "VBP", "VBZ",
+                "RB", "RBR", "RBS",
+                "SYM", "TO", "UH",
+                "WDT", "WP", "WP$", "WRB",
+                ",", ".", ":", "\"", "(", ")"
+            ].indexOf($0[1]) == -1
+            
+        return keywords.map ($0) ->
+            return $0[0].toLowerCase()
+            
+    proximityToTweet: (anotherTweet) ->
+        thisKeywords = @keywords()
+        otherKeywords = anotherTweet.keywords()
+        
+        matches = thisKeywords.filter ($0) ->
+            otherKeywords.indexOf($0) != -1
+        
+        return matches.length / otherKeywords.length
+    
+    # Mutators
     destroyWithCascade: () ->
         self = this
         
@@ -22,11 +53,14 @@ Tweet = Parse.Object.extend "Tweet", {
                         console.log("destroying story", story.get("title"))
 }, {
     # Class Properties  
-    client: new Twitter
+    _client: new Twitter
         consumer_key: "AuIeip7tJbQec6W1jp5EEaGaL"
         consumer_secret: "QM7O2qHuI08YT5heU6wJc0rkxCZNpvqxRGWIrVR0cIyHbhvyDP"
         access_token_key: "10125612-qTock7QLLQjhc2UdlIVIRoGPBAN1fTAHZaVhdFMfU"
         access_token_secret: "EPWE4lhyTjzBqjkk9oVe92QMirvlz0pygQudg7wNzrVp9"
+        
+    _lexer: new pos.Lexer
+    _tagger: new pos.Tagger
     
     # Initializers    
     fromTweetData: (tweetData) ->        
@@ -34,12 +68,13 @@ Tweet = Parse.Object.extend "Tweet", {
         tweet.set "tweetID", tweetData.id_str
         tweet.set "isBreaking", tweetData.text.indexOf("#BREAKING") == 0
         tweet.set "mediaURL", tweetData.entities?.media?[0]?.media_url or null
-    
+        tweet.set "text", tweetData.text
+        
         return tweet
     
     # Class Accessors
     stream: (filterData, handler) ->
-        Tweet.client.stream "statuses/filter", filterData, (stream) ->
+        Tweet._client.stream "statuses/filter", filterData, (stream) ->
             stream.on "data", (tweetData) ->
                 handler(tweetData)
                 
