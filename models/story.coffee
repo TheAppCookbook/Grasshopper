@@ -83,14 +83,21 @@ Story = Parse.Object.extend "Story", {
             
         query = new Parse.Query Story
         query.descending "createdAt"
-        query.first {
+        query.first
             success: (story) ->
                 Story._mostRecent = story
                 callback(story)
-            error: (error) ->
-                console.log(error)
+            error: () ->
                 callback(null)
-        }
+        
+    forTweet: (tweet, callback) ->
+        query = new Parse.Query Story
+        query.equalTo "tweets", tweet
+        query.first
+            success: (story) ->
+                callback(story)
+            error: () ->
+                callback(null)
 }
 
 module.exports = Story
