@@ -27,52 +27,34 @@ throng start,
     lifetime: Infinity
     
 # Handlers
-processTweet = (tweetData) ->
-    idString = tweetData.attributes.id_str
-    text = tweetData.attributes.text
+processTweet = (tweetData) -> 
+    console.log(tweetData)
     
-    entities = JSON.parse(tweetData._hashedJSON?.entities)
-    media_url = entities?.media?[0]?.media_url or null
+    if tweetData.delete?
+        # TODO: Handle `delete` events.
+        return null
     
+    # assume new tweet
     Story.mostRecent (story) ->
         unless story?
-            console.log("creating first story from tweet", idString)
+            story = Story.fromTweetData tweetData
+            tweet = Tweet.fromTweetData tweetData
             
-            story = new Story
-            story.set("title", text)
-            story.set("imageURLString", media_url)
-            story.save()
-            
+            story.saveWithInitialTweet tweet
+            console.log("creating first story")
             return
+            
+        console.log("most recent story", story.get("title"))
         
-        story.allTweets (tweets) ->
-            latestTweet = tweets[0]
-            latestTime = latestTweet?.createdAt.getTime() or (new Date).getTime()
-            
-            elapsedTime = (new Date).getTime() - latestTime
-            sameDay = elapsedTime < 10800000  # milliseconds in 3 hours
-            
-            if sameDay
-                console.log("adding tweet", idString, "to most recent story")
-                
-                tweet = new Tweet
-                tweet.set("tweetID", idString)
-                tweet.save null, {
-                    success: () ->
-                        console.log("... save complete")
-                        story.tweets().add(tweet)
-                        
-                        if (not story.get("imageURLString")?) and media_url?
-                            console.log("setting media_url from tweet", idString, "to most recent story")
-                            story.set("imageURLString", media_url)
-                        
-                        story.save()
-                }
-            else
-                console.log("creating story from tweet", idString)
-            
-                story = new Story
-                story.set("title", text)
-                story.set("imageURLString", media_url)
+        tweet = Tweet.fromTweetData tweetData
+        story.addTweet tweet, (addedTweet) ->
+            if addedTweet?
+                console.log("adding tweet", tweet.get("tweetID") , "to most recent story")
                 story.save()
+                return
+                           
+            console.log("creating story from tweet", tweet.get("tweetID"))
+            
+            newStory = Story.fromTweetData tweetData
+            newStory.saveWithInitialTweet tweet
             
