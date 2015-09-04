@@ -30,11 +30,19 @@ throng start,
 processTweet = (tweetData) -> 
     console.log(tweetData)
     
+    # delete
     if tweetData.delete?
-        # TODO: Handle `delete` events.
-        return null
+        idString = tweetData.delete.status.id_str
+        Tweet.find {"tweetID": idString}, (tweets) ->
+            tweet = tweets[0]
+            unless tweet?
+                return
+                
+            tweet.destroyWithCascade()
+
+        return
     
-    # assume new tweet
+    # new tweet (assumed)
     Story.mostRecent (story) ->
         unless story?
             story = Story.fromTweetData tweetData
