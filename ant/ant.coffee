@@ -28,7 +28,7 @@ throng start,
     
 # Handlers
 processTweet = (tweetData) -> 
-    console.log(tweetData)
+    # console.log(tweetData)
     
     # delete
     if tweetData.delete?
