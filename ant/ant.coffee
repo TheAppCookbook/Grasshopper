@@ -41,7 +41,7 @@ processTweet = (tweetData) ->
             tweet = Tweet.fromTweetData tweetData
             
             story.saveWithInitialTweet tweet
-            console.log("creating first story")
+            console.log("creating first story from tweet", tweet.get("tweetID"))
             return
             
         console.log("most recent story", story.get("title"))
