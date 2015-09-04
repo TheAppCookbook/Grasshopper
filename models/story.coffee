@@ -16,9 +16,11 @@ Story = Parse.Object.extend "Story", {
                 callback(null)
     
     # Mutators
-    addTweet: (tweet, callback) ->        
+    addTweet: (tweet, callback) ->
+        # callback(addedTweet, alreadyAdded)
+        
         if tweet.get("isBreaking")
-            callback(null)
+            callback(null, false)
             return
                     
         self = this
@@ -37,11 +39,11 @@ Story = Parse.Object.extend "Story", {
             # compare texts
             for oldTweet in tweets
                 if oldTweet.text == tweet.text
-                    callback(oldTweet)
+                    callback(null, true)
                     return
                 
                 unless oldTweet.proximityToTweet(tweet) > 0.0
-                    callback(null)
+                    callback(null, false)
                     return
                 
             if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
@@ -50,10 +52,10 @@ Story = Parse.Object.extend "Story", {
             tweet.save null,
                 success: (newTweet) ->
                     self.relation("tweets").add newTweet
-                    callback(tweet)
+                    callback(tweet, false)
                     
                 error: () ->
-                    callback(null)
+                    callback(null, false)
                     
     saveWithInitialTweet: (tweet, callback) ->
         self = this
