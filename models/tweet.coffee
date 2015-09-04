@@ -10,13 +10,16 @@ Tweet = Parse.Object.extend "Tweet", {
         self = this
         
         Story.forTweet this, (story) ->
-            console.log("destroying tweet", self.get("tweetID"))
-            self.destroy
-                success: () ->
-                    story.tweets (tweets) ->
-                        if tweets.length == 0
-                            story.destroy()
-                            console.log("destroying story", story.get("title"))
+            success: () ->
+                story.tweets (tweets) ->
+                    destroyStory = tweets.indexOf(self) == 0
+                    
+                    console.log("destroying tweet", self.get("tweetID"))
+                    self.destroy
+                    
+                    if destroyStory
+                        story.destroy()
+                        console.log("destroying story", story.get("title"))
 }, {
     # Class Properties  
     client: new Twitter
