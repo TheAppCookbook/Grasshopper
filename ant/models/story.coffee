@@ -9,12 +9,11 @@ Story = Parse.Object.extend "Story", {
         query = @relation("tweets").query()
         query.descending "createdAt"
         
-        query.find {
+        query.find
             success: (tweets) ->
                 callback(tweets)
             error: (error) ->
                 callback(null)
-        }
     
     # Mutators
     addTweet: (tweet, callback) ->
