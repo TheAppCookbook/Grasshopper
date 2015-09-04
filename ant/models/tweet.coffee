@@ -81,7 +81,6 @@ Tweet = Parse.Object.extend "Tweet", {
     find: (attrs, callback) ->
         query = new Parse.Query Tweet
         for key, val of attrs
-            console.log(key, val)
             query.equalTo key, val
         query.find
             success: (tweets) ->
