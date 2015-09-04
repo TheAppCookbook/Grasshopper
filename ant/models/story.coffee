@@ -33,12 +33,12 @@ Story = Parse.Object.extend "Story", {
             sameTimeChunk = elapsedTime < Story.lapseTime
             
             unless sameTimeChunk
-                callback(null)
+                callback(null, false)
                 return
                 
             # compare texts
             for oldTweet in tweets
-                if oldTweet.text == tweet.text
+                if oldTweet.get("text") == tweet.get("text")
                     callback(null, true)
                     return
                 
