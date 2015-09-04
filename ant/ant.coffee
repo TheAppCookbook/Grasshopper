@@ -57,6 +57,10 @@ processTweet = (tweetData) ->
         tweet = Tweet.fromTweetData tweetData
         story.addTweet tweet, (addedTweet) ->
             if addedTweet?
+                if addedTweet.get("tweetID") != tweet.get("tweetID")
+                    console.log("skipping duplicate tweet", tweet.get("tweetID"))
+                    return
+                
                 console.log("adding tweet", tweet.get("tweetID") , "to most recent story")
                 story.save()
                 return
