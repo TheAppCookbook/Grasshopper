@@ -24,7 +24,7 @@
 		73B8E1761B8CCAC500910D7E /* GrasshopperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E1751B8CCAC500910D7E /* GrasshopperTests.swift */; };
 		73B8E1801B8CCC6D00910D7E /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E17F1B8CCC6D00910D7E /* Tweet.swift */; };
 		73CCAFD11B94EEB9000F564D /* embedded_tweet.html in Resources */ = {isa = PBXBuildFile; fileRef = 73CCAFD01B94EEB9000F564D /* embedded_tweet.html */; };
-		C316FE0185217F381F70CDBF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E691D7C5AF150EC9816F2E77 /* Pods.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		C316FE0185217F381F70CDBF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E691D7C5AF150EC9816F2E77 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
