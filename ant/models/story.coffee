@@ -48,7 +48,7 @@ Story = Parse.Object.extend "Story", {
             
             unless isApproximate
                 callback(null, false)
-                    return
+                return
             
             # add it
             if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
