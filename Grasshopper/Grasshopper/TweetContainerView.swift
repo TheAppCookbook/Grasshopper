@@ -53,7 +53,7 @@ class TweetContainerView: UIWebView {
             htmlStrings.append(htmlString)
         }
         
-        let content = "\n".join(htmlStrings)
+        let content = htmlStrings.joinWithSeparator("\n")
         let page = TweetContainerView.embeddedTweetsContainerHTML.stringByReplacingOccurrencesOfString("$TWEETS",
             withString: content,
             options: [],
