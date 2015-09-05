@@ -37,15 +37,20 @@ Story = Parse.Object.extend "Story", {
                 return
                 
             # compare texts
+            isApproximate = false
             for oldTweet in tweets
                 if oldTweet.get("text") == tweet.get("text")
                     callback(null, true)
                     return
                 
-                unless oldTweet.proximityToTweet(tweet) > 0.0
-                    callback(null, false)
+                if oldTweet.proximityToTweet(tweet) > 0.0
+                    isApproximate = true
+            
+            unless isApproximate
+                callback(null, false)
                     return
-                
+            
+            # add it
             if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
                 self.set "imageURLString", tweet.get("mediaURL")
                 
