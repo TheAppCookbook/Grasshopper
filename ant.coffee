@@ -43,6 +43,10 @@ processTweet = (tweetData) ->
         return
     
     # new tweet (assumed)
+    if tweetData.text?.indexOf("@GrasswireNow") == 0
+        console.log("skipping @ mention", tweetData.text)
+        return
+    
     Story.mostRecent (story) ->
         unless story?
             story = Story.fromTweetData tweetData
