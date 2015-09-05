@@ -10,16 +10,19 @@ import UIKit
 
 extension UIImage {
     func imageWithGrayscale() -> UIImage {
-        var imageRect = CGRectMake(0,0,CGFloat(CGImageGetWidth(self.CGImage)),CGFloat(CGImageGetHeight(self.CGImage)))
+        let imageRect = CGRectMake(0,0,CGFloat(CGImageGetWidth(self.CGImage)),CGFloat(CGImageGetHeight(self.CGImage)))
         
-        var colorSpace = CGColorSpaceCreateDeviceGray()
-        var context = CGBitmapContextCreate(nil, CGImageGetWidth(self.CGImage), CGImageGetHeight(self.CGImage), 8, 0, colorSpace, CGBitmapInfo.ByteOrderDefault)
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let context = CGBitmapContextCreate(nil,
+            CGImageGetWidth(self.CGImage),
+            CGImageGetHeight(self.CGImage),
+            8, 0, colorSpace,
+            CGBitmapInfo.ByteOrderDefault.rawValue)
         CGContextDrawImage(context, imageRect, self.CGImage)
         
-        var imageRef = CGBitmapContextCreateImage(context)
+        let imageRef = CGBitmapContextCreateImage(context)
         
-        var newImage = UIImage(CGImage: imageRef!, scale: CGFloat(CGImageGetWidth(self.CGImage))/self.size.width, orientation: UIImageOrientation.Up)
-        
-        return newImage!
+        let newImage = UIImage(CGImage: imageRef!, scale: CGFloat(CGImageGetWidth(self.CGImage))/self.size.width, orientation: UIImageOrientation.Up)
+        return newImage
     }
 }

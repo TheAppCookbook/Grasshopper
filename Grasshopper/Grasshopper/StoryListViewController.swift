@@ -77,14 +77,14 @@ class StoryListViewController: UICollectionViewController {
     }
 }
 
-extension StoryListViewController: UICollectionViewDataSource {
+extension StoryListViewController { // UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.stories.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("StoryCell",
-            forIndexPath: indexPath) as! UICollectionViewCell
+            forIndexPath: indexPath) as UICollectionViewCell
         let story = self.stories[indexPath.row]
         
         let imageView = cell.viewWithTag(1) as! UIImageView
@@ -155,7 +155,7 @@ extension StoryListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension StoryListViewController: UICollectionViewDelegate {
+extension StoryListViewController { // UICollectionViewControllerDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let story = self.stories[indexPath.row]
         self.performSegueWithIdentifier("PushStory", sender: story)

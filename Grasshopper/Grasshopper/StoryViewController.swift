@@ -53,7 +53,7 @@ extension StoryViewController: UIWebViewDelegate {
         }
         
         if let requestURL = request.URL?.absoluteString {
-            println("REQ: \(requestURL), NAV: \(navigationType.rawValue)")
+            print("REQ: \(requestURL), NAV: \(navigationType.rawValue)")
             
             if requestURL.hasPrefix("http") && navigationType == .LinkClicked {
                 UIApplication.sharedApplication().openURL(request.URL!)

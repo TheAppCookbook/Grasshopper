@@ -10,13 +10,23 @@ import UIKit
 
 class TweetContainerView: UIWebView {
     // MARK: Constants
-    private static let embeddedTweetsContainerHTML: String = NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweets_container", ofType: "html")!,
-        encoding: NSUTF8StringEncoding,
-        error: nil) as! String
+    private static let embeddedTweetsContainerHTML: String = {
+        do {
+            return try NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweets_container", ofType: "html")!,
+                encoding: NSUTF8StringEncoding) as String
+        } catch _ {
+            return "'"
+        }
+    }()
     
-    private static let embeddedTweetHTML: String = NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweet", ofType: "html")!,
-        encoding: NSUTF8StringEncoding,
-        error: nil) as! String
+    private static let embeddedTweetHTML: String = {
+        do {
+            return try NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweet", ofType: "html")!,
+                encoding: NSUTF8StringEncoding) as String
+        } catch _ {
+            return ""
+        }
+    }()
     
     // MARK: Properties    
     var tweets: [Tweet] = [] {
@@ -38,7 +48,7 @@ class TweetContainerView: UIWebView {
         for tweet in self.tweets {
             let htmlString = TweetContainerView.embeddedTweetHTML.stringByReplacingOccurrencesOfString("$TWEET_ID",
                 withString: tweet.tweetID,
-                options: nil,
+                options: [],
                 range: nil)
             htmlStrings.append(htmlString)
         }
@@ -46,7 +56,7 @@ class TweetContainerView: UIWebView {
         let content = "\n".join(htmlStrings)
         let page = TweetContainerView.embeddedTweetsContainerHTML.stringByReplacingOccurrencesOfString("$TWEETS",
             withString: content,
-            options: nil,
+            options: [],
             range: nil)
         
         self.loadHTMLString(page, baseURL: nil)
