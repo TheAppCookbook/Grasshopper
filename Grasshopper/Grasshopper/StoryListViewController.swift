@@ -88,18 +88,19 @@ extension StoryListViewController { // UICollectionViewDataSource
         let story = self.stories[indexPath.row]
         
         let imageView = cell.viewWithTag(1) as! UIImageView
+        imageView.image = nil
         imageView.setImageWithURL(story.imageURL!)
         
         let titleLabel = cell.viewWithTag(2) as! UILabel
         titleLabel.text = story.title
         
         let tweetCountLabel = cell.viewWithTag(3) as! UILabel
+        tweetCountLabel.text = "..."
         story.tweets.query()?.countObjectsInBackgroundWithBlock({ (count: Int32, err: NSError?) in
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = .DecimalStyle
             tweetCountLabel.text = numberFormatter.stringFromNumber(NSNumber(int: count))
         })
-        
         
         return cell
     }
