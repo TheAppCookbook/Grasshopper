@@ -140,7 +140,7 @@
             </objects>
             <point key="canvasLocation" x="49" y="322"/>
         </scene>
-        <!--Story View Controller-->
+        <!--Scroll View Delegate-->
         <scene sceneID="U4w-cj-kBG">
             <objects>
                 <viewController id="a57-RB-qU3" customClass="StoryViewController" customModule="Grasshopper" customModuleProvider="target" sceneMemberID="viewController">
@@ -188,6 +188,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="a57-RB-qU3" id="48u-aI-5W6"/>
+                                    <outlet property="scrollViewDelegate" destination="a57-RB-qU3" id="WDo-Gg-8tY"/>
                                 </connections>
                             </webView>
                         </subviews>
@@ -206,6 +207,8 @@
                         <outlet property="headerImageView" destination="xSa-lS-21z" id="V5H-mT-opi"/>
                         <outlet property="headerTitelLabel" destination="maP-3i-iUF" id="3Wb-ad-Lwg"/>
                         <outlet property="titleImageView" destination="27l-Zl-ryV" id="dva-nA-mjn"/>
+                        <outlet property="titleView" destination="St8-0s-hgL" id="7hG-Yl-2RL"/>
+                        <outlet property="titleViewYConstraint" destination="5z9-5l-fVd" id="ntM-fe-UO7"/>
                         <outlet property="tweetContainerView" destination="iMF-Ju-yPv" id="yoh-nA-pCT"/>
                     </connections>
                 </viewController>

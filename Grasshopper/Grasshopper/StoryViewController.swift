@@ -15,6 +15,9 @@ class StoryViewController: UIViewController {
     @IBOutlet var titleImageView: UIImageView!
     @IBOutlet var tweetContainerView: TweetContainerView!
     
+    @IBOutlet var titleView: UIView!
+    @IBOutlet var titleViewYConstraint: NSLayoutConstraint!
+    
     private var tweets: [Tweet] = []
     var story: Story?
     
@@ -62,5 +65,24 @@ extension StoryViewController: UIWebViewDelegate {
         }
         
         return true
+    }
+}
+
+extension StoryViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y, scrollView.contentSize.height)
+        
+        var constant: CGFloat = 0
+        if scrollView.contentOffset.y < 0 {
+            constant = 0
+        } else if (scrollView.contentOffset.y + scrollView.frame.height) > scrollView.contentSize.height {
+            constant = self.titleViewYConstraint.constant
+        } else {
+            constant = -scrollView.contentOffset.y
+        }
+        
+        constant = max(constant, -self.titleView.frame.height) // actually min(abs, abs)
+        self.titleViewYConstraint.constant = constant
+        self.titleView.alpha = 1.0 - (abs(constant) / self.titleView.frame.height)
     }
 }

@@ -10,28 +10,22 @@ import UIKit
 
 class TweetContainerView: UIWebView {
     // MARK: Constants
-    private static let embeddedTweetsContainerHTML: String = {
-        do {
-            return try NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweets_container", ofType: "html")!,
-                encoding: NSUTF8StringEncoding) as String
-        } catch _ {
-            return "'"
-        }
-    }()
+    private static let embeddedTweetsContainerHTML: String = try! NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweets_container", ofType: "html")!,
+        encoding: NSUTF8StringEncoding) as String
     
-    private static let embeddedTweetHTML: String = {
-        do {
-            return try NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweet", ofType: "html")!,
-                encoding: NSUTF8StringEncoding) as String
-        } catch _ {
-            return ""
-        }
-    }()
+    private static let embeddedTweetHTML: String = try! NSString(contentsOfFile: NSBundle.mainBundle().pathForResource("embedded_tweet", ofType: "html")!,
+        encoding: NSUTF8StringEncoding) as String
     
-    // MARK: Properties    
+    // MARK: Properties
     var tweets: [Tweet] = [] {
         didSet {
             self.reloadData()
+        }
+    }
+    
+    @IBOutlet var scrollViewDelegate: UIScrollViewDelegate? {
+        didSet {
+            self.scrollView.delegate = self.scrollViewDelegate
         }
     }
 
