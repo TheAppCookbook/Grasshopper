@@ -43,7 +43,7 @@ processTweet = (tweetData) ->
         return
     
     # new tweet (assumed)
-    if tweetData.text?.indexOf("@GrasswireNow") == 0
+    if tweetData.text?.indexOf("@") == 0
         console.log("skipping @ mention", tweetData.text)
         return
     
