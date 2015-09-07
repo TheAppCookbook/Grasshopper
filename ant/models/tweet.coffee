@@ -66,7 +66,7 @@ Tweet = Parse.Object.extend "Tweet", {
     fromTweetData: (tweetData) ->        
         tweet = new Tweet
         tweet.set "tweetID", tweetData.id_str
-        tweet.set "isBreaking", tweetData.text.indexOf("#BREAKING") == 0
+        tweet.set "isBreaking", tweetData.text.indexOf("#BREAKING") != -1
         tweet.set "mediaURL", tweetData.entities?.media?[0]?.media_url or null
         tweet.set "text", tweetData.text
         
