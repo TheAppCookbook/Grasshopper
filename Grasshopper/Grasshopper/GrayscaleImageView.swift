@@ -14,12 +14,11 @@ class GrayscaleImageView: UIImageView {
     
     override var image: UIImage? {
         didSet {
-            if let image = self.image {
-                if image != self.internalSetImage {
-                    self.internalSetImage = image.imageWithGrayscale()
-                    self.image = self.internalSetImage
-                    self.internalSetImage = nil
-                }
+            guard let image = self.image else { return }
+            if image != self.internalSetImage {
+                self.internalSetImage = image.imageWithGrayscale()
+                self.image = self.internalSetImage
+                self.internalSetImage = nil
             }
         }
     }
