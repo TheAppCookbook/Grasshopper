@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class StoryViewController: UIViewController {
     // MARK: Properties
@@ -58,8 +59,14 @@ extension StoryViewController: UIWebViewDelegate {
         if let requestURL = request.URL?.absoluteString {
             print("REQ: \(requestURL), NAV: \(navigationType.rawValue)")
             
-            if requestURL.hasPrefix("http") && navigationType == .LinkClicked {
-                UIApplication.sharedApplication().openURL(request.URL!)
+            if requestURL.hasPrefix("http") && (navigationType != .Other && navigationType != .Reload) {
+                let safariVC = SFSafariViewController(URL: request.URL!)
+                safariVC.view.tintColor = self.navigationController?.navigationBar.barTintColor
+                
+                self.presentViewController(safariVC,
+                    animated: true,
+                    completion: nil)
+                
                 return false
             }
         }
