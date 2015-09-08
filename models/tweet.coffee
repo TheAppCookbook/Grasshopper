@@ -52,7 +52,7 @@ Tweet = Parse.Object.extend "Tweet", {
                         story.destroy()
                         console.log("destroying story", story.get("title"))
 }, {
-    # Class Properties  
+    # Class Properties
     _client: new Twitter
         consumer_key: "AuIeip7tJbQec6W1jp5EEaGaL"
         consumer_secret: "QM7O2qHuI08YT5heU6wJc0rkxCZNpvqxRGWIrVR0cIyHbhvyDP"
@@ -62,8 +62,15 @@ Tweet = Parse.Object.extend "Tweet", {
     _lexer: new pos.Lexer
     _tagger: new pos.Tagger
     
-    # Initializers    
-    fromTweetData: (tweetData) ->        
+    # Initializers
+    fromTweetData: (tweetData) ->
+        if tweetData.text?.indexOf("@") == 0
+            console.log("invalid: direct @-mention", tweetData.text)
+            return null
+        else if tweetData.text?.indexOf("RT @GrasswireNow") == 0
+            console.log("invalid: RT @GrasswireNow", tweetData.text)
+            return null
+        
         tweet = new Tweet
         tweet.set "tweetID", tweetData.id_str
         tweet.set "isBreaking", tweetData.text.indexOf("#BREAKING") != -1

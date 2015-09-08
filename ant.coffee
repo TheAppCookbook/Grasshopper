@@ -27,9 +27,7 @@ throng start,
     lifetime: Infinity
     
 # Handlers
-processTweet = (tweetData) -> 
-    # console.log(tweetData)
-    
+processTweet = (tweetData) ->
     # delete
     if tweetData.delete?
         idString = tweetData.delete.status.id_str
@@ -43,22 +41,19 @@ processTweet = (tweetData) ->
         return
     
     # new tweet (assumed)
-    if tweetData.text?.indexOf("@") == 0
-        console.log("skipping @ mention", tweetData.text)
+    tweet = Tweet.fromTweetData tweetData
+    unless tweet?
         return
     
     Story.mostRecent (story) ->
         unless story?
             story = Story.fromTweetData tweetData
-            tweet = Tweet.fromTweetData tweetData
-            
+
             story.saveWithInitialTweet tweet
             console.log("creating first story from tweet", tweet.get("tweetID"))
             return
             
         console.log("most recent story", story.get("title"))
-        
-        tweet = Tweet.fromTweetData tweetData
         story.addTweet tweet, (addedTweet, alreadyAdded) ->
             if addedTweet?
                 console.log("adding tweet", tweet.get("tweetID") , "to most recent story")
