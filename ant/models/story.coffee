@@ -1,7 +1,5 @@
 # Imports
 Parse = require("parse").Parse
-Tweet = require "./tweet"
-
 
 Story = Parse.Object.extend "Story", {
     # Accessors
@@ -28,7 +26,7 @@ Story = Parse.Object.extend "Story", {
             latestTweet = tweets[0]
             
             # prune duplicates
-            dupeQuery = new Parse.Query Tweet
+            dupeQuery = new Parse.Query "Tweet"
             dupeQuery.equalTo "text", tweet.get("text")
             dupeQuery.first
                 success: (dupeTweet) ->
