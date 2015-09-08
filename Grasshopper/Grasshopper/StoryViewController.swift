@@ -59,7 +59,10 @@ extension StoryViewController: UIWebViewDelegate {
         if let requestURL = request.URL?.absoluteString {
             print("REQ: \(requestURL), NAV: \(navigationType.rawValue)")
             
-            if requestURL.hasPrefix("http") && (navigationType != .Other && navigationType != .Reload) {
+            var externalRequest: Bool = requestURL.hasPrefix("http") && (navigationType != .Other && navigationType != .Reload)
+            externalRequest = externalRequest || (requestURL.rangeOfString("twitter.com/intent") != nil)
+            
+            if externalRequest {
                 let safariVC = SFSafariViewController(URL: request.URL!)
                 safariVC.view.tintColor = self.navigationController?.navigationBar.barTintColor
                 
@@ -77,8 +80,6 @@ extension StoryViewController: UIWebViewDelegate {
 
 extension StoryViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y, scrollView.contentSize.height)
-        
         var constant: CGFloat = 0
         if scrollView.contentOffset.y < 0 {
             constant = 0
