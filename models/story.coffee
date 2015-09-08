@@ -28,7 +28,7 @@ Story = Parse.Object.extend "Story", {
             latestTweet = tweets[0]
             
             # prune duplicates
-            dupeQuery = Parse.Query Tweet
+            dupeQuery = new Parse.Query Tweet
             dupeQuery.equalTo "text", tweet.text
             dupeQuery.first (dupeTweet) ->
                 if dupeTweet?
