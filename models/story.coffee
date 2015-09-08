@@ -30,43 +30,44 @@ Story = Parse.Object.extend "Story", {
             # prune duplicates
             dupeQuery = new Parse.Query Tweet
             dupeQuery.equalTo "text", tweet.get("text")
-            dupeQuery.first (dupeTweet) ->
-                console.log("searching for dupe", tweet.get("text"), "found", dupeTweet?.get("tweetID"))
-                if dupeTweet?
-                    callback(null, true)
-                    return
-            
-                # find time chunk
-                latestTime = latestTweet.createdAt.getTime()
-                elapsedTime = (new Date).getTime() - latestTime
-                sameTimeChunk = elapsedTime < Story.lapseTime
+            dupeQuery.first
+                success: (dupeTweet) ->
+                    console.log("searching for dupe", tweet.get("text"), "found", dupeTweet?.get("tweetID"))
+                    if dupeTweet?
+                        callback(null, true)
+                        return
                 
-                unless sameTimeChunk
-                    callback(null, false)
-                    return
+                    # find time chunk
+                    latestTime = latestTweet.createdAt.getTime()
+                    elapsedTime = (new Date).getTime() - latestTime
+                    sameTimeChunk = elapsedTime < Story.lapseTime
                     
-                # compare texts
-                isApproximate = false
-                for oldTweet in tweets
-                    if oldTweet.proximityToTweet(tweet) > 0.0
-                        isApproximate = true
-                        break
-                
-                unless isApproximate
-                    callback(null, false)
-                    return
-                
-                # add it
-                if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
-                    self.set "imageURLString", tweet.get("mediaURL")
-                    
-                tweet.save null,
-                    success: (newTweet) ->
-                        self.relation("tweets").add newTweet
-                        callback(tweet, false)
-                        
-                    error: () ->
+                    unless sameTimeChunk
                         callback(null, false)
+                        return
+                        
+                    # compare texts
+                    isApproximate = false
+                    for oldTweet in tweets
+                        if oldTweet.proximityToTweet(tweet) > 0.0
+                            isApproximate = true
+                            break
+                    
+                    unless isApproximate
+                        callback(null, false)
+                        return
+                    
+                    # add it
+                    if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
+                        self.set "imageURLString", tweet.get("mediaURL")
+                        
+                    tweet.save null,
+                        success: (newTweet) ->
+                            self.relation("tweets").add newTweet
+                            callback(tweet, false)
+                            
+                        error: () ->
+                            callback(null, false)
                     
     saveWithInitialTweet: (tweet, callback) ->
         self = this
