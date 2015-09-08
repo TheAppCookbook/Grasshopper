@@ -29,8 +29,9 @@ Story = Parse.Object.extend "Story", {
             
             # prune duplicates
             dupeQuery = new Parse.Query Tweet
-            dupeQuery.equalTo "text", tweet.text
+            dupeQuery.equalTo "text", tweet.get("text")
             dupeQuery.first (dupeTweet) ->
+                console.log("searching for dupe", tweet.get("text"), "found", dupeTweet?.get("tweetID"))
                 if dupeTweet?
                     callback(null, true)
                     return
