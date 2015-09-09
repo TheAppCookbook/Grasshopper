@@ -14,5 +14,4 @@ unrelatedTweet = Tweet.fromTweetData
 	text: "Fridays are usually slow news days. Today is not one of those days. Join us in the world's biggest open newsroom - http://t.co/FFb1rbgzqh"
 	
 
-console.log firstTweet.proximityToTweet relatedTweet
-console.log firstTweet.proximityToTweet unrelatedTweet
+console.log firstTweet.keywords()

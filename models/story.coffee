@@ -1,9 +1,12 @@
 # Imports
 Parse = require("parse").Parse
+Flickr = require("flickrapi")
+
 
 Story = Parse.Object.extend "Story", {
     # Accessors
     tweets: (callback) ->
+        require("./tweet")
         query = @relation("tweets").query()
         query.descending "createdAt"
         
@@ -12,7 +15,38 @@ Story = Parse.Object.extend "Story", {
                 callback(tweets)
             error: (error) ->
                 callback(null)
-    
+                
+    fallbackImageURL: (callback) ->
+        flickrURLTemplate = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_b.jpg"
+        
+        flickrClient = Story._flickrClient
+        unless flickrClient?
+            callback(null)
+            return
+            
+        @tweets (tweets) ->
+            latestTweet = tweets[0]
+            unless latestTweet?
+                callback(null)
+                return
+            
+            query = latestTweet.keywords().slice(0, 3).join("+")
+            flickrClient.photos.search {text: query}, (err, result) ->
+                photos = result.photos.photo.filter ($0) ->
+                    $0.ispublic == 1
+                
+                unless photos.length > 0
+                    callback(null)
+                    return
+                
+                photo = photos[0]
+                url = flickrURLTemplate.replace "{farm-id}", photo.farm
+                    .replace "{server-id}", photo.server
+                    .replace "{id}", photo.id
+                    .replace "{secret}", photo.secret
+                
+                callback(url)
+
     # Mutators
     addTweet: (tweet, callback) ->
         # callback(addedTweet, alreadyAdded)
@@ -82,6 +116,7 @@ Story = Parse.Object.extend "Story", {
 }, {
     # Class Properties
     lapseTime: 10800000  # 3 hours in milliseconds
+    _flickrClient: null
     
     # Initializers
     fromTweetData: (tweetData) ->
@@ -120,5 +155,16 @@ Story = Parse.Object.extend "Story", {
             error: () ->
                 callback(null)
 }
+
+# Class Initializers
+_loadFlickr = () ->
+    flickrCredentials =
+        api_key: "2808285e6e53f3d7011b76d30f428897"
+        secret: "37503f2600622d77"
+    
+    Flickr.tokenOnly flickrCredentials, (err, flickrClient) ->
+        Story._flickrClient = flickrClient
+_loadFlickr()
+
 
 module.exports = Story
