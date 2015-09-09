@@ -1,14 +1,14 @@
 # Imports
-#throng = require "throng"
 Parse = require("parse").Parse
-Tweet = require "./models/tweet"
-Story = require "./models/story"
-throng = require "throng"
+Tweet = require("./models/tweet")
+Story = require("./models/story")
+throng = require("throng")
 
 
 # Setup
 Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
     "SFrizfmgICHbDha7OsJD30GLxACYUYkBWa9omGBO"
+
 
 # Main
 start = () ->
@@ -68,3 +68,9 @@ processTweet = (tweetData) ->
             newStory = Story.fromTweetData tweetData
             newStory.saveWithInitialTweet tweet
             
+            if not story.get("imageURLString")?
+                console.log("searching for fallback image for last story")
+                story.fallbackImageURL (url) ->
+                    story.set "imageURLString", url
+                    story.save()
+
