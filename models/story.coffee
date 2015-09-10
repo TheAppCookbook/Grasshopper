@@ -30,22 +30,36 @@ Story = Parse.Object.extend "Story", {
                 callback(null)
                 return
             
-            query = latestTweet.keywords().slice(0, 3).join("+")
-            flickrClient.photos.search {text: query}, (err, result) ->
-                photos = result.photos.photo.filter ($0) ->
-                    $0.ispublic == 1
-                
-                unless photos.length > 0
+            search = (keywordCount) ->
+                if keywordCount == 0
                     callback(null)
                     return
                 
-                photo = photos[0]
-                url = flickrURLTemplate.replace "{farm-id}", photo.farm
-                    .replace "{server-id}", photo.server
-                    .replace "{id}", photo.id
-                    .replace "{secret}", photo.secret
+                query = latestTweet.keywords().slice(0, keywordCount).join("+")
+                searchQuery =
+                    text: query
+                    privacy_filter: 1
+                    content_type: 1
+                    media: "photos"
+                    is_commons: true
+                    per_page: 1
                 
-                callback(url)
+                console.log(searchQuery)
+                flickrClient.photos.search searchQuery, (err, result) ->
+                    photos = result.photos.photo
+                    unless photos.length > 0
+                        search(keywordCount - 1)
+                        return
+                    
+                    photo = photos[0]
+                    console.log(photo, ">>>")
+                    url = flickrURLTemplate.replace "{farm-id}", photo.farm
+                        .replace "{server-id}", photo.server
+                        .replace "{id}", photo.id
+                        .replace "{secret}", photo.secret
+                    
+                    callback(url)
+            search(latestTweet.keywords().length)
 
     # Mutators
     addTweet: (tweet, callback) ->
@@ -157,14 +171,13 @@ Story = Parse.Object.extend "Story", {
 }
 
 # Class Initializers
-_loadFlickr = () ->
+do () ->
     flickrCredentials =
         api_key: "2808285e6e53f3d7011b76d30f428897"
         secret: "37503f2600622d77"
     
     Flickr.tokenOnly flickrCredentials, (err, flickrClient) ->
         Story._flickrClient = flickrClient
-_loadFlickr()
 
 
 module.exports = Story

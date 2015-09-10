@@ -9,23 +9,34 @@ Tweet = Parse.Object.extend "Tweet", {
     # Accessors
     keywords: () ->
         # https://github.com/dariusk/pos-js
+        partsOfSpeech = [
+            "NNPS", "NNP", "FW", "JJ",
+            "NN", "NNS", "UH",
+            "VBG", "VB", "VBD", "VBN",
+            "VBP", "VBZ"
+        ]
         
         taggedWords = Tweet._tagger.tag(Tweet._lexer.lex(@get("text")))
         longEnoughWords = taggedWords.filter ($0) ->
             return $0[0].length > 3
         
         keywords = longEnoughWords.filter ($0) ->
-            return [
-                "IN", "DT", "CC", "CD",
-                "VB", "VBD", "VBN", "VBP", "VBZ",
-                "RB", "RBR", "RBS",
-                "SYM", "TO", "UH",
-                "WDT", "WP", "WP$", "WRB",
-                ",", ".", ":", "\"", "(", ")"
-            ].indexOf($0[1]) == -1
+            # filter out trivial parts of speech
+            return partsOfSpeech.indexOf($0[1]) != -1
+        
+        keywords = keywords.sort ($0, $1) ->
+            # filter twitter semantics
+            if $0[0].indexOf("@") == 0 or $0[0].indexOf("#") == 0
+                return 1
             
-        return keywords.map ($0) ->
+            # sort by part of speech
+            return partsOfSpeech.indexOf($0[1]) - partsOfSpeech.indexOf($1[1])
+            
+        keywords = keywords.map ($0) ->
+            # lowercase for standardization
             return $0[0].toLowerCase()
+            
+        return keywords
             
     proximityToTweet: (anotherTweet) ->
         thisKeywords = @keywords()
