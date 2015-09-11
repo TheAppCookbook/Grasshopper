@@ -1,6 +1,6 @@
 # Imports
 Parse = require("parse").Parse
-Flickr = require("flickrapi")
+ImageSearch = require("google-images")
 
 
 Story = Parse.Object.extend "Story", {
@@ -17,13 +17,6 @@ Story = Parse.Object.extend "Story", {
                 callback(null)
                 
     fallbackImageURL: (callback) ->
-        flickrURLTemplate = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_b.jpg"
-        
-        flickrClient = Story._flickrClient
-        unless flickrClient?
-            callback(null)
-            return
-            
         @tweets (tweets) ->
             latestTweet = tweets[0]
             unless latestTweet?
@@ -34,32 +27,18 @@ Story = Parse.Object.extend "Story", {
                 if keywordCount == 0
                     callback(null)
                     return
-                
-                query = latestTweet.keywords().slice(0, keywordCount).join("+")
-                searchQuery =
-                    text: query
-                    privacy_filter: 1
-                    content_type: 1
-                    media: "photos"
-                    is_commons: true
-                    per_page: 1
-                
-                console.log(searchQuery)
-                flickrClient.photos.search searchQuery, (err, result) ->
-                    photos = result.photos.photo
+            
+                query = latestTweet.keywords().slice(0, keywordCount).join(",")                
+                ImageSearch.search query, (err, photos) ->
                     unless photos.length > 0
                         search(keywordCount - 1)
                         return
-                    
+            
                     photo = photos[0]
-                    console.log(photo, ">>>")
-                    url = flickrURLTemplate.replace "{farm-id}", photo.farm
-                        .replace "{server-id}", photo.server
-                        .replace "{id}", photo.id
-                        .replace "{secret}", photo.secret
+                    console.log(">>>", photo)
+                    callback(photo.url)
                     
-                    callback(url)
-            search(latestTweet.keywords().length)
+            search(Math.min(latestTweet.keywords().length, 3))
 
     # Mutators
     addTweet: (tweet, callback) ->
@@ -130,7 +109,7 @@ Story = Parse.Object.extend "Story", {
 }, {
     # Class Properties
     lapseTime: 10800000  # 3 hours in milliseconds
-    _flickrClient: null
+    # _flickrClient: null
     
     # Initializers
     fromTweetData: (tweetData) ->
@@ -169,15 +148,5 @@ Story = Parse.Object.extend "Story", {
             error: () ->
                 callback(null)
 }
-
-# Class Initializers
-do () ->
-    flickrCredentials =
-        api_key: "2808285e6e53f3d7011b76d30f428897"
-        secret: "37503f2600622d77"
-    
-    Flickr.tokenOnly flickrCredentials, (err, flickrClient) ->
-        Story._flickrClient = flickrClient
-
 
 module.exports = Story
