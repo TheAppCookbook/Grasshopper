@@ -28,7 +28,7 @@ Story = Parse.Object.extend "Story", {
                     callback(null)
                     return
             
-                query = latestTweet.keywords().slice(0, keywordCount).join(",")                
+                query = latestTweet.keywords().slice(0, keywordCount).join(",")
                 ImageSearch.search query, (err, photos) ->
                     unless photos.length > 0
                         search(keywordCount - 1)
@@ -74,7 +74,7 @@ Story = Parse.Object.extend "Story", {
                     # compare texts
                     isApproximate = false
                     for oldTweet in tweets
-                        if oldTweet.proximityToTweet(tweet) > 0.0
+                        if oldTweet.proximityToTweet(tweet) > 0
                             isApproximate = true
                             break
                     
