@@ -1,8 +1,9 @@
 # Imports
-Twitter = require "twitter"
+Twitter = require("twitter")
 Parse = require("parse").Parse
-Story = require "./story"
-pos = require "pos"
+Story = require("./story")
+POS = require("pos")
+HtmlEntities = require("html-entities").AllHtmlEntities
 
 
 Tweet = Parse.Object.extend "Tweet", {
@@ -70,8 +71,8 @@ Tweet = Parse.Object.extend "Tweet", {
         access_token_key: "10125612-qTock7QLLQjhc2UdlIVIRoGPBAN1fTAHZaVhdFMfU"
         access_token_secret: "EPWE4lhyTjzBqjkk9oVe92QMirvlz0pygQudg7wNzrVp9"
         
-    _lexer: new pos.Lexer
-    _tagger: new pos.Tagger
+    _lexer: new POS.Lexer
+    _tagger: new POS.Tagger
     
     # Initializers
     fromTweetData: (tweetData) ->
@@ -81,12 +82,12 @@ Tweet = Parse.Object.extend "Tweet", {
         else if tweetData.text?.indexOf("RT @GrasswireNow") == 0
             console.log("invalid: RT @GrasswireNow", tweetData.text)
             return null
-        
+            
         tweet = new Tweet
         tweet.set "tweetID", tweetData.id_str
         tweet.set "isBreaking", tweetData.text.indexOf("BREAKING") != -1
         tweet.set "mediaURL", tweetData.entities?.media?[0]?.media_url or null
-        tweet.set "text", tweetData.text
+        tweet.set "text", HTMLEntities.decode(tweetData.text)
         
         return tweet
     
