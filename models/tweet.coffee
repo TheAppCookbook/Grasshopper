@@ -45,7 +45,7 @@ Tweet = Parse.Object.extend "Tweet", {
         matches = thisKeywords.filter ($0) ->
             otherKeywords.indexOf($0) != -1
         
-        return matches.length / otherKeywords.length
+        return matches.length
     
     # Mutators
     destroyWithCascade: () ->
