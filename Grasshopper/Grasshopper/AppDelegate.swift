@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Story.generatePlaceholders()
         
         // Setup Appearance
-        application.statusBarStyle = .LightContent
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 15.0)!
         ]

@@ -13,7 +13,6 @@ import ACBInfoPanel
 class StoryListViewController: UICollectionViewController {
     // MARK: Properties
     @IBOutlet var titleImageView: UIImageView!
-    
     private var stories: [Story] = []
     
     // MARK: Lifecycle
