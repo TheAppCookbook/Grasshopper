@@ -25,12 +25,14 @@ PODS:
   - Parse (1.8.1):
     - Bolts/Tasks (>= 1.2.0)
   - UICollectionViewLeftAlignedLayout (1.0.0)
+  - UIScrollView-InfiniteScroll (0.7.3)
 
 DEPENDENCIES:
   - ACBInfoPanel (from `git@github.com:TheAppCookbook/templates.git`, branch `master`)
   - AFNetworking
   - Parse
   - UICollectionViewLeftAlignedLayout
+  - UIScrollView-InfiniteScroll
 
 EXTERNAL SOURCES:
   ACBInfoPanel:
@@ -48,5 +50,6 @@ SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
   UICollectionViewLeftAlignedLayout: c3dddf91b3dc72ede7eca7a532545804389ab833
+  UIScrollView-InfiniteScroll: b6c7d6d155dca7f9c5dd43813ecffeb301b3d50c
 
 COCOAPODS: 0.38.2
