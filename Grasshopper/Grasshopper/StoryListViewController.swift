@@ -51,7 +51,6 @@ class StoryListViewController: UICollectionViewController {
     private func reloadData(completion: (() -> Void)={}) {
         let query = Story.query()
         query?.orderByDescending("createdAt")
-        query?.limit = 10
         
         query?.findObjectsInBackgroundWithBlock({ (objs: [AnyObject]?, err: NSError?) in
             self.stories = objs as? [Story] ?? []

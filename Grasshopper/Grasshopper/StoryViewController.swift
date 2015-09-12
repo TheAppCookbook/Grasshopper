@@ -68,7 +68,7 @@ extension StoryViewController: UIWebViewDelegate {
                 
                 self.presentViewController(safariVC,
                     animated: true,
-                    completion: nil)                
+                    completion: nil)
                 return false
             }
         }
