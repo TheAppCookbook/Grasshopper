@@ -3,7 +3,7 @@ Twitter = require("twitter")
 Parse = require("parse").Parse
 Story = require("./story")
 POS = require("pos")
-HtmlEntities = require("html-entities").AllHtmlEntities
+HTMLEntities = require("html-entities").AllHtmlEntities
 
 
 Tweet = Parse.Object.extend "Tweet", {
@@ -73,6 +73,7 @@ Tweet = Parse.Object.extend "Tweet", {
         
     _lexer: new POS.Lexer
     _tagger: new POS.Tagger
+    _htmlEncoder: new HTMLEntities
     
     # Initializers
     fromTweetData: (tweetData) ->
@@ -87,7 +88,7 @@ Tweet = Parse.Object.extend "Tweet", {
         tweet.set "tweetID", tweetData.id_str
         tweet.set "isBreaking", tweetData.text.indexOf("BREAKING") != -1
         tweet.set "mediaURL", tweetData.entities?.media?[0]?.media_url or null
-        tweet.set "text", HTMLEntities.decode(tweetData.text)
+        tweet.set "text", Tweet._htmlEncoder.decode(tweetData.text)
         
         return tweet
     
