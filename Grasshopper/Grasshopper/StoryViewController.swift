@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import Parse
 
 class StoryViewController: UIViewController {
     // MARK: Properties
@@ -39,8 +40,7 @@ class StoryViewController: UIViewController {
         
         let query = self.story?.tweets.query()
         query?.orderByDescending("createdAt")
-        
-        query?.findObjectsInBackgroundWithBlock({ (objs: [AnyObject]?, err: NSError?) in
+        query?.findObjectsInBackgroundWithBlock({ (objs: [PFObject]?, err: NSError?) in
             self.tweets = objs as? [Tweet] ?? []
             
             self.tweetContainerView.tweets = self.tweets

@@ -24,6 +24,7 @@
 		73B8E1761B8CCAC500910D7E /* GrasshopperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E1751B8CCAC500910D7E /* GrasshopperTests.swift */; };
 		73B8E1801B8CCC6D00910D7E /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B8E17F1B8CCC6D00910D7E /* Tweet.swift */; };
 		73CCAFD11B94EEB9000F564D /* embedded_tweet.html in Resources */ = {isa = PBXBuildFile; fileRef = 73CCAFD01B94EEB9000F564D /* embedded_tweet.html */; };
+		73F7884B1BA60E2E00A7F7B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F7884A1BA60E2E00A7F7B5 /* CoreLocation.framework */; };
 		C316FE0185217F381F70CDBF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E691D7C5AF150EC9816F2E77 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		73B8E1751B8CCAC500910D7E /* GrasshopperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrasshopperTests.swift; sourceTree = "<group>"; };
 		73B8E17F1B8CCC6D00910D7E /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		73CCAFD01B94EEB9000F564D /* embedded_tweet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = embedded_tweet.html; sourceTree = "<group>"; };
+		73F7884A1BA60E2E00A7F7B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DC1225D251FBE8CB025542FA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E691D7C5AF150EC9816F2E77 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73F7884B1BA60E2E00A7F7B5 /* CoreLocation.framework in Frameworks */,
 				C316FE0185217F381F70CDBF /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +190,7 @@
 		7BD8F52811EB8CDAA4037ABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73F7884A1BA60E2E00A7F7B5 /* CoreLocation.framework */,
 				E691D7C5AF150EC9816F2E77 /* Pods.framework */,
 			);
 			name = Frameworks;

@@ -9,6 +9,7 @@
 import UIKit
 import AFNetworking
 import ACBInfoPanel
+import Parse
 
 class StoryListViewController: UICollectionViewController {
     // MARK: Properties
@@ -52,7 +53,7 @@ class StoryListViewController: UICollectionViewController {
         let query = Story.query()
         query?.orderByDescending("createdAt")
         
-        query?.findObjectsInBackgroundWithBlock({ (objs: [AnyObject]?, err: NSError?) in
+        query?.findObjectsInBackgroundWithBlock({ (objs: [PFObject]?, err: NSError?) in
             self.stories = objs as? [Story] ?? []
             self.collectionView?.reloadData()
             completion()

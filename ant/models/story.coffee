@@ -109,7 +109,6 @@ Story = Parse.Object.extend "Story", {
 }, {
     # Class Properties
     lapseTime: 10800000  # 3 hours in milliseconds
-    # _flickrClient: null
     
     # Initializers
     fromTweetData: (tweetData) ->

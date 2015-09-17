@@ -30,7 +30,7 @@ class Story: PFObject, PFSubclassing {
             let newStory = Story()
             newStory.title = "Dow bounces back slightly after 1,000-point drop at market open - http://bit.ly/1PuIVpI  #BlackMonday"
             newStory.imageURLString = "https://pbs.twimg.com/media/CNLn4AMWIAAYGBT.jpg:large"
-            newStory.save()
+            try! newStory.save()
             
             let tweets = [
                 "635825879705341952",
@@ -46,12 +46,12 @@ class Story: PFObject, PFSubclassing {
             for tweetID in tweets {
                 let tweet = Tweet()
                 tweet.tweetID = tweetID
-                tweet.save()
+                try! tweet.save()
                 
                 newStory.tweets.addObject(tweet)
             }
             
-            newStory.save()
+            try! newStory.save()
         }
         
         // Ferguson
@@ -59,7 +59,7 @@ class Story: PFObject, PFSubclassing {
             let newStory = Story()
             newStory.title = "Video: Gunshots heard at protest in #Ferguson, Missouri (video: @search4swag) - grasswire.com/ferguson pic.twitter.com/rwQfInYRhP"
             newStory.imageURLString = "https://pbs.twimg.com/media/CMBcnybWUAADfdD.jpg:large"
-            newStory.save()
+            try! newStory.save()
             
             let tweets = [
                 "630609081615679488",
@@ -73,12 +73,12 @@ class Story: PFObject, PFSubclassing {
             for tweetID in tweets {
                 let tweet = Tweet()
                 tweet.tweetID = tweetID
-                tweet.save()
+                try! tweet.save()
                 
                 newStory.tweets.addObject(tweet)
             }
             
-            newStory.save()
+            try! newStory.save()
         }
         
         // Explosion
@@ -86,7 +86,7 @@ class Story: PFObject, PFSubclassing {
             let newStory = Story()
             newStory.title = "More: Motel 6 Bremerton, WA exploded fifteen minutes after being evacuated due to a gas leak - @seattletimes http://t.co/5JshGtxzYT"
             newStory.imageURLString = "https://pbs.twimg.com/media/CMvocX4UAAAYw-e.jpg:large"
-            newStory.save()
+            try! newStory.save()
             
             let tweets = [
                 "633859044524949504",
@@ -98,12 +98,12 @@ class Story: PFObject, PFSubclassing {
             for tweetID in tweets {
                 let tweet = Tweet()
                 tweet.tweetID = tweetID
-                tweet.save()
+                try! tweet.save()
                 
                 newStory.tweets.addObject(tweet)
             }
             
-            newStory.save()
+            try! newStory.save()
         }
         
         ferguson()
