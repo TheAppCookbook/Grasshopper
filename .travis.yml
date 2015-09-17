@@ -1,1 +1,1 @@
-script: pushd ant; npm test
+language: node_js

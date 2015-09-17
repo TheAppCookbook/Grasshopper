@@ -1,1 +1,1 @@
-worker: coffee ant/ant.coffee
+worker: coffee ant.coffee

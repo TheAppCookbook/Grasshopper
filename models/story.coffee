@@ -35,7 +35,6 @@ Story = Parse.Object.extend "Story", {
                         return
             
                     photo = photos[0]
-                    console.log(">>>", photo)
                     callback(photo.url)
                     
             search(Math.min(latestTweet.keywords().length, 3))
@@ -109,7 +108,6 @@ Story = Parse.Object.extend "Story", {
 }, {
     # Class Properties
     lapseTime: 10800000  # 3 hours in milliseconds
-    # _flickrClient: null
     
     # Initializers
     fromTweetData: (tweetData) ->
