@@ -1,0 +1,1 @@
+worker: coffee ant/ant.coffee
