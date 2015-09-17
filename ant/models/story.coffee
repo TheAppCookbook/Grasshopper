@@ -35,7 +35,6 @@ Story = Parse.Object.extend "Story", {
                         return
             
                     photo = photos[0]
-                    console.log(">>>", photo)
                     callback(photo.url)
                     
             search(Math.min(latestTweet.keywords().length, 3))

@@ -15,6 +15,7 @@
     "twitter": "^1.2.5"
   },
   "scripts": {
-      "test": "nodeunit tests/*.coffee"
+      "test": "nodeunit tests/*.coffee",
+      "start": "coffee ant/ant.coffee"
   }
 }
