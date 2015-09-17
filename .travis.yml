@@ -1,0 +1,1 @@
+script: pushd ant; npm test
