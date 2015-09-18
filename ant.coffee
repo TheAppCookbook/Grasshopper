@@ -27,7 +27,7 @@ if require.main == module
         lifetime: Infinity
     
 # Handlers
-processTweet = (tweetData, callback) ->
+processTweet = (tweetData, findImages = true, callback) ->
     # delete
     if tweetData.delete?
         idString = tweetData.delete.status.id_str
@@ -72,14 +72,14 @@ processTweet = (tweetData, callback) ->
             
             console.log("creating story from tweet", tweet.get("tweetID"))
             
-            newStory = Story.fromTweetData tweetData
-            newStory.saveWithInitialTweet tweet, () ->
-                callback?()
-            
-            if not story.get("imageURLString")?
+            if not story.get("imageURLString")? and findImages
                 console.log("searching for fallback image for last story")
                 story.fallbackImageURL (url) ->
                     story.set "imageURLString", url
                     story.save()
+            
+            newStory = Story.fromTweetData tweetData
+            newStory.saveWithInitialTweet tweet, () ->
+                callback?()
                     
 module.exports = processTweet

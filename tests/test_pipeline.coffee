@@ -103,7 +103,7 @@ exports.testPipeline = (test) ->
             
             tweet = Tweets[tweetIndex]
             console.log("\ntesting", tweetIndex, tweet.text)
-            processTweet tweet, () ->
+            processTweet tweet, false, () ->
                 tweet.expectation test, () ->
                     nextTweet tweetIndex + 1
                     
