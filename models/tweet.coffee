@@ -53,6 +53,7 @@ Tweet = Parse.Object.extend "Tweet", {
         matches = thisKeywords.filter ($0) ->
             otherKeywords.indexOf($0) != -1
         
+        console.log(oldTweet.get('text'), "is approx to", tweet.get('text'), "by", matches.length, matches)
         return matches.length
     
     # Mutators

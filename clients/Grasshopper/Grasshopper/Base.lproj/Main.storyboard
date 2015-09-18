@@ -92,7 +92,6 @@
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="pdL-wu-8qn" secondAttribute="trailing" constant="-8" id="6IA-Nh-lKa"/>
                                     <constraint firstAttribute="centerX" secondItem="0jS-c7-Fuh" secondAttribute="centerX" constant="13.5" id="CrE-px-HdV"/>
-                                    <constraint firstItem="0jS-c7-Fuh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="20" id="JMw-8h-Bf8"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="pdL-wu-8qn" secondAttribute="bottom" constant="-8" id="Jnd-sC-owI"/>
                                     <constraint firstItem="pdL-wu-8qn" firstAttribute="top" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="-8" id="LzW-xx-L0Q"/>
                                     <constraint firstItem="v9O-Qv-m7L" firstAttribute="leading" secondItem="0jS-c7-Fuh" secondAttribute="trailing" constant="9" id="SPH-oO-aN8"/>
@@ -103,8 +102,8 @@
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="VJ5-dw-PeY" secondAttribute="trailing" constant="20" id="ZFK-fw-jcc"/>
                                     <constraint firstAttribute="centerY" secondItem="VJ5-dw-PeY" secondAttribute="centerY" constant="10" id="ciC-fh-ck4"/>
                                     <constraint firstItem="pdL-wu-8qn" firstAttribute="leading" secondItem="FnF-0k-KUS" secondAttribute="leadingMargin" constant="-8" id="dgd-qv-aIT"/>
-                                    <constraint firstItem="VJ5-dw-PeY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="25" id="ia2-Nq-sbJ"/>
-                                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="0jS-c7-Fuh" secondAttribute="bottom" constant="25" id="ne1-DZ-Inj"/>
+                                    <constraint firstItem="VJ5-dw-PeY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FnF-0k-KUS" secondAttribute="topMargin" constant="20" id="ia2-Nq-sbJ"/>
+                                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="0jS-c7-Fuh" secondAttribute="bottom" constant="20" id="ne1-DZ-Inj"/>
                                 </constraints>
                                 <size key="customSize" width="165" height="168"/>
                             </collectionViewCell>
@@ -171,15 +170,15 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xSa-lS-21z" secondAttribute="trailing" id="4eW-Bm-Jjq"/>
                                     <constraint firstItem="xSa-lS-21z" firstAttribute="top" secondItem="St8-0s-hgL" secondAttribute="top" id="5ke-da-SkO"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="maP-3i-iUF" secondAttribute="bottom" constant="25" id="9BT-Eb-JDc"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="maP-3i-iUF" secondAttribute="bottom" constant="20" id="9BT-Eb-JDc"/>
                                     <constraint firstItem="xSa-lS-21z" firstAttribute="leading" secondItem="St8-0s-hgL" secondAttribute="leading" id="G1U-1N-qlK"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="maP-3i-iUF" secondAttribute="trailing" constant="25" id="HYa-UQ-4K4"/>
-                                    <constraint firstItem="maP-3i-iUF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="St8-0s-hgL" secondAttribute="top" constant="25" id="KBM-Oc-C5L"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="maP-3i-iUF" secondAttribute="trailing" constant="20" id="HYa-UQ-4K4"/>
+                                    <constraint firstItem="maP-3i-iUF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="St8-0s-hgL" secondAttribute="top" constant="20" id="KBM-Oc-C5L"/>
                                     <constraint firstAttribute="centerY" secondItem="maP-3i-iUF" secondAttribute="centerY" constant="0.5" id="KJq-i3-xw0"/>
                                     <constraint firstAttribute="bottom" secondItem="xSa-lS-21z" secondAttribute="bottom" id="WF3-1U-B7i"/>
                                     <constraint firstAttribute="height" constant="188" id="XNs-uh-6kR"/>
                                     <constraint firstAttribute="centerX" secondItem="maP-3i-iUF" secondAttribute="centerX" id="iBW-ck-FaN"/>
-                                    <constraint firstItem="maP-3i-iUF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="St8-0s-hgL" secondAttribute="leading" constant="25" id="jdx-2Z-mlP"/>
+                                    <constraint firstItem="maP-3i-iUF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="St8-0s-hgL" secondAttribute="leading" constant="20" id="jdx-2Z-mlP"/>
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMF-Ju-yPv" customClass="TweetContainerView" customModule="Grasshopper" customModuleProvider="target">

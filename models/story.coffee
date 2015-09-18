@@ -71,7 +71,6 @@ Story = Parse.Object.extend "Story", {
                 isApproximate = false
                 for oldTweet in tweets
                     if oldTweet.proximityToTweet(tweet) > 0
-                        console.log(oldTweet.get('text'), "is approx to", tweet.get('text'), "by", oldTweet.proximityToTweet(tweet))
                         isApproximate = true
                         break
                 
