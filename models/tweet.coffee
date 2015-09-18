@@ -17,6 +17,10 @@ Tweet = Parse.Object.extend "Tweet", {
             "VBP", "VBZ"
         ]
         
+        filteredTerms = [
+            "http", "https"
+        ]
+        
         taggedWords = Tweet._tagger.tag(Tweet._lexer.lex(@get("text")))
         longEnoughWords = taggedWords.filter ($0) ->
             return $0[0].length > 3
@@ -37,6 +41,9 @@ Tweet = Parse.Object.extend "Tweet", {
             # lowercase for standardization
             return $0[0].toLowerCase()
             
+        keywords = keywords.filter ($0) ->
+            return filteredTerms.indexOf($0) == -1
+            
         return keywords
             
     proximityToTweet: (anotherTweet) ->
@@ -49,20 +56,23 @@ Tweet = Parse.Object.extend "Tweet", {
         return matches.length
     
     # Mutators
-    destroyWithCascade: () ->
+    destroyWithCascade: (callback) ->
         self = this
         
         Story.forTweet this, (story) ->
-            success: () ->
-                story.tweets (tweets) ->
-                    destroyStory = tweets.indexOf(self) == 0
+            story.tweets (tweets) ->
+                destroyStory = tweets.indexOf(self) == 0
+                
+                console.log("destroying tweet", self.get("tweetID"))
+                self.destroy
+                
+                if destroyStory
+                    story.destroy().then () ->
+                        callback?()
                     
-                    console.log("destroying tweet", self.get("tweetID"))
-                    self.destroy
-                    
-                    if destroyStory
-                        story.destroy()
-                        console.log("destroying story", story.get("title"))
+                    console.log("destroying story", story.get("title"))
+                else
+                    callback?()
 }, {
     # Class Properties
     _client: new Twitter
@@ -102,11 +112,8 @@ Tweet = Parse.Object.extend "Tweet", {
         query = new Parse.Query Tweet
         for key, val of attrs
             query.equalTo key, val
-        query.find
-            success: (tweets) ->
-                callback(tweets)
-            error: () ->
-                callback(null)
+        query.find().then (tweets) ->
+            callback(tweets)
 }
         
 module.exports = Tweet

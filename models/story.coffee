@@ -10,11 +10,8 @@ Story = Parse.Object.extend "Story", {
         query = @relation("tweets").query()
         query.descending "createdAt"
         
-        query.find
-            success: (tweets) ->
-                callback(tweets)
-            error: (error) ->
-                callback(null)
+        query.find().then (tweets) ->
+            callback(tweets)
                 
     fallbackImageURL: (callback) ->
         @tweets (tweets) ->
@@ -42,10 +39,6 @@ Story = Parse.Object.extend "Story", {
     # Mutators
     addTweet: (tweet, callback) ->
         # callback(addedTweet, alreadyAdded)
-        
-        if tweet.get("isBreaking")
-            callback(null, false)
-            return
                     
         self = this
         @tweets (tweets) ->
@@ -54,57 +47,53 @@ Story = Parse.Object.extend "Story", {
             # prune duplicates
             dupeQuery = new Parse.Query "Tweet"
             dupeQuery.equalTo "text", tweet.get("text")
-            dupeQuery.first
-                success: (dupeTweet) ->
-                    console.log("searching for dupe", tweet.get("text"), "found", dupeTweet?.get("tweetID"))
-                    if dupeTweet?
-                        callback(null, true)
-                        return
+            dupeQuery.first().then (dupeTweet) ->
+                console.log("searching for dupe", tweet.get("text"), "found", dupeTweet?.get("tweetID"))
+                if dupeTweet?
+                    callback(null, true)
+                    return
+                    
+                # filter breaking tweets
+                if tweet.get("isBreaking")
+                    callback(null, false)
+                    return
+            
+                # find time chunk
+                latestTime = latestTweet.createdAt.getTime()
+                elapsedTime = (new Date).getTime() - latestTime
+                sameTimeChunk = elapsedTime < Story.lapseTime
                 
-                    # find time chunk
-                    latestTime = latestTweet.createdAt.getTime()
-                    elapsedTime = (new Date).getTime() - latestTime
-                    sameTimeChunk = elapsedTime < Story.lapseTime
+                unless sameTimeChunk
+                    callback(null, false)
+                    return
                     
-                    unless sameTimeChunk
-                        callback(null, false)
-                        return
-                        
-                    # compare texts
-                    isApproximate = false
-                    for oldTweet in tweets
-                        if oldTweet.proximityToTweet(tweet) > 0
-                            isApproximate = true
-                            break
+                # compare texts
+                isApproximate = false
+                for oldTweet in tweets
+                    if oldTweet.proximityToTweet(tweet) > 0
+                        console.log(oldTweet.get('text'), "is approx to", tweet.get('text'), "by", oldTweet.proximityToTweet(tweet))
+                        isApproximate = true
+                        break
+                
+                unless isApproximate
+                    callback(null, false)
+                    return
+                
+                # add it
+                if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
+                    self.set "imageURLString", tweet.get("mediaURL")
                     
-                    unless isApproximate
-                        callback(null, false)
-                        return
-                    
-                    # add it
-                    if (not self.get("imageURLString")?) and tweet.get("mediaURL")?
-                        self.set "imageURLString", tweet.get("mediaURL")
-                        
-                    tweet.save null,
-                        success: (newTweet) ->
-                            self.relation("tweets").add newTweet
-                            callback(tweet, false)
-                            
-                        error: () ->
-                            callback(null, false)
+                tweet.save().then (newTweet) ->
+                    self.relation("tweets").add newTweet
+                    callback(tweet, false)
                     
     saveWithInitialTweet: (tweet, callback) ->
         self = this
         
-        @save null,
-        success: () ->
-            tweet.save null,
-                success: () ->
-                    self.relation("tweets").add tweet
-                    self.save null,
-                        success: () ->
-                            if callback?
-                                callback()
+        tweet.save().then () ->
+            self.relation("tweets").add tweet
+            self.save().then () ->
+                callback?()
 }, {
     # Class Properties
     lapseTime: 10800000  # 3 hours in milliseconds
@@ -130,21 +119,15 @@ Story = Parse.Object.extend "Story", {
             
         query = new Parse.Query Story
         query.descending "createdAt"
-        query.first
-            success: (story) ->
-                Story._mostRecent = story
-                callback(story)
-            error: () ->
-                callback(null)
+        query.first().then (story) ->
+            Story._mostRecent = story
+            callback(story)
         
     forTweet: (tweet, callback) ->
         query = new Parse.Query Story
         query.equalTo "tweets", tweet
-        query.first
-            success: (story) ->
-                callback(story)
-            error: () ->
-                callback(null)
+        query.first().then (story) ->
+            callback(story)
 }
 
 module.exports = Story

@@ -5,11 +5,6 @@ Story = require("./models/story")
 throng = require("throng")
 
 
-# Setup
-Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
-    "SFrizfmgICHbDha7OsJD30GLxACYUYkBWa9omGBO"
-
-
 # Main
 start = () ->
     streamOptions =
@@ -22,34 +17,43 @@ start = () ->
     catch error
         console.log("streaming error:", error)
     
-throng start,
-    workers: 1
-    lifetime: Infinity
+if require.main == module
+    # Setup
+    Parse.initialize "MAJ7aKEx6PNiDxONOIzwSP29QEeZ3i9dkz5tkj2o",
+        "SFrizfmgICHbDha7OsJD30GLxACYUYkBWa9omGBO"
+    
+    throng start,
+        workers: 1
+        lifetime: Infinity
     
 # Handlers
-processTweet = (tweetData) ->
+processTweet = (tweetData, callback) ->
     # delete
     if tweetData.delete?
         idString = tweetData.delete.status.id_str
         Tweet.find {"tweetID": idString}, (tweets) ->
             tweet = tweets[0]
             unless tweet?
+                callback?()
                 return
                 
-            tweet.destroyWithCascade()
-
+            tweet.destroyWithCascade () ->
+                callback?()
         return
     
     # new tweet (assumed)
     tweet = Tweet.fromTweetData tweetData
     unless tweet?
+        callback?()
         return
     
     Story.mostRecent (story) ->
         unless story?
             story = Story.fromTweetData tweetData
 
-            story.saveWithInitialTweet tweet
+            story.saveWithInitialTweet tweet, () ->
+                callback?()
+                
             console.log("creating first story from tweet", tweet.get("tweetID"))
             return
             
@@ -57,20 +61,25 @@ processTweet = (tweetData) ->
         story.addTweet tweet, (addedTweet, alreadyAdded) ->
             if addedTweet?
                 console.log("adding tweet", tweet.get("tweetID") , "to most recent story")
-                story.save()
+                story.save().then () ->
+                    callback?()
+                    
                 return
             else if alreadyAdded
                 console.log("skipping duplicate tweet", tweet.get("tweetID"))
+                callback?()
                 return
             
             console.log("creating story from tweet", tweet.get("tweetID"))
             
             newStory = Story.fromTweetData tweetData
-            newStory.saveWithInitialTweet tweet
+            newStory.saveWithInitialTweet tweet, () ->
+                callback?()
             
             if not story.get("imageURLString")?
                 console.log("searching for fallback image for last story")
                 story.fallbackImageURL (url) ->
                     story.set "imageURLString", url
                     story.save()
-
+                    
+module.exports = processTweet

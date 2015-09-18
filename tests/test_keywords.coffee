@@ -1,39 +1,22 @@
+# Imports
 Tweet = require "../models/tweet"
 
 
+# Setup
 firstTweet = Tweet.fromTweetData
 	id_str: "0"
-	text: "Hungarian riot police push refugees back onto train that's been at standstill in Bicske, Hungary. Police seem to be sealing train: CNN team"
+	text: "RT @MatthewKeysLive: American Airlines spokesperson tells me “technical issues” are causing flights to be grounded nationwide."
 	
 relatedTweet = Tweet.fromTweetData
 	id_str: "1"
-	text: "Riot police now heading towards #Bicske train, with refugees onboard. http://t.co/PK5OfstyTp"
+	text: "RT @grasswire: American Airlines grounds flights in U.S. over “technical glitch,” airliner confirms to Grasswire - http://t.co/2dHMbbit7M"
 	
 unrelatedTweet = Tweet.fromTweetData
 	id_str: "2"
-	text: "Fridays are usually slow news days. Today is not one of those days. Join us in the world's biggest open newsroom - http://t.co/FFb1rbgzqh"
+	text: "NWATWC says very small tsunami waves were observed along California’s shoreline earlier this morning - http://t.co/co0rfp9CZa"
 	
-
-exports.testKeywords = (test) ->
-	test.deepEqual firstTweet.keywords(), [ 'police',
-		'hungary',
-		'standstill',
-		'hungarian',
-		'team',
-		'train',
-		'riot',
-		'bicske',
-		'train',
-		'police',
-		'refugees',
-		'sealing',
-		'seem',
-		'push',
-		'been'
-	]
 	
-	test.done()
-	
+# Tests
 exports.testProximity = (test) ->
 	test.ok firstTweet.proximityToTweet(relatedTweet) > 0
 	test.ok firstTweet.proximityToTweet(unrelatedTweet) == 0
